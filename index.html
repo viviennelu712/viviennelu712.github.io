@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vivian x AI 協作</title>
+<meta name="description" content="沒有技術背景的媽媽，和 AI 協作，建立孩子的學習系統。免費工具與家長指南。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAF8F4; --surface:#fff; --ink:#1E1B16; --ink-2:#4A4438;
+    --muted:#7C7362; --rule:#E4DFD4; --accent:#8A5A2B; --accent-soft:#F3EADD;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#17150F; --surface:#201D16; --ink:#EFEAE0; --ink-2:#C6BFB0;
+      --muted:#918876; --rule:#332E24; --accent:#D3A063; --accent-soft:#2B2318; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-weight:300;font-size:17px;line-height:1.8;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:56px 22px 80px}
+  h1{font-size:27px;font-weight:700;line-height:1.35;margin:0 0 14px;letter-spacing:-.01em}
+  .lede{color:var(--ink-2);margin:0 0 8px}
+  ul.what{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
+  ul.what li{padding-left:20px;position:relative;font-size:16px;color:var(--ink-2)}
+  ul.what li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
+  h2{font-size:14px;font-weight:500;letter-spacing:.12em;color:var(--muted);
+    margin:52px 0 16px;text-transform:none}
+  .card{display:block;text-decoration:none;color:inherit;background:var(--surface);
+    border:1px solid var(--rule);border-radius:10px;padding:20px 22px;margin-bottom:14px;
+    transition:border-color .15s}
+  .card:hover,.card:focus-visible{border-color:var(--accent);outline:none}
+  .card .t{font-size:18px;font-weight:500;margin-bottom:5px}
+  .card .d{font-size:15px;color:var(--ink-2);line-height:1.7}
+  .card .go{font-size:14px;color:var(--accent);margin-top:10px}
+  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--rule);
+    font-size:14px;color:var(--muted);line-height:1.8}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>沒有技術背景的媽媽，<br>和 AI 協作，建立孩子的學習系統</h1>
+  <p class="lede">這裡放我實際做出來、家裡真的在用的東西。都可以直接打開，不用註冊。</p>
+  <ul class="what">
+    <li>全科學習規劃</li>
+    <li>用 AI 解決孩子學習中的具體問題</li>
+    <li>自製學習工具，免費分享</li>
+  </ul>
+
+  <h2>給家長的指南</h2>
+
+  <a class="card" href="./classroom/">
+    <div class="t">Google Classroom ＋ Gemini 使用指南</div>
+    <div class="d">學校已經開始用 AI 了。這份整理孩子手上那個學習助手有哪些功能、怎麼用，以及家長要提醒孩子的三件事。</div>
+    <div class="go">打開指南 →</div>
+  </a>
+
+  <h2>免費工具</h2>
+
+  <a class="card" href="https://viviennelu712.github.io/math-power-timer/">
+    <div class="t">口算能量訓練器</div>
+    <div class="d">把計算練到不佔腦力。孩子解應用題時要同時處理讀題、想方法、算數字，這個只處理最後一項。不排名、不需要帳號，紀錄只留在自己的裝置。</div>
+    <div class="go">打開工具 →</div>
+  </a>
+
+  <a class="card" href="https://viviennelu712.github.io/math-concept-game/">
+    <div class="t">數學概念闖關</div>
+    <div class="d">用遊戲把抽象的數學概念變成看得見的東西，給國小中高年級。打開就能玩。</div>
+    <div class="go">打開工具 →</div>
+  </a>
+
+  <footer>
+    Vivian x AI 協作<br>
+    這些工具是我自己做的，免費使用。有問題歡迎在我的貼文底下留言。
+  </footer>
+
+</div>
+</body>
+</html>

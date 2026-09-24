@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Classroom ＋ Gemini 使用指南｜給家長</title>
+<meta name="description" content="學校的 Google Classroom 裡有一個 Gemini 學習助手。這份指南說明它有哪些功能、怎麼帶孩子用，以及家長要提醒的三件事。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#FAF8F4; --surface:#fff; --ink:#1E1B16; --ink-2:#4A4438;
+    --muted:#7C7362; --rule:#E4DFD4; --accent:#8A5A2B; --accent-soft:#F3EADD;
+    --warn:#8A5A2B; --warn-soft:#F6EEE2;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#17150F; --surface:#201D16; --ink:#EFEAE0; --ink-2:#C6BFB0;
+      --muted:#918876; --rule:#332E24; --accent:#D3A063; --accent-soft:#2B2318;
+      --warn:#D3A063; --warn-soft:#2B2318; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-weight:300;font-size:17px;line-height:1.85;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:44px 22px 80px}
+  .back{display:inline-block;font-size:14px;color:var(--accent);text-decoration:none;margin-bottom:26px}
+  .back:hover{text-decoration:underline}
+  h1{font-size:26px;font-weight:700;line-height:1.4;margin:0 0 16px;letter-spacing:-.01em}
+  .lede{color:var(--ink-2);margin:0 0 6px}
+  h2{font-size:20px;font-weight:700;margin:48px 0 6px;line-height:1.45}
+  h2 .n{color:var(--accent);font-weight:500;margin-right:8px}
+  .sub{color:var(--muted);font-size:15px;margin:0 0 18px}
+  .item{background:var(--surface);border:1px solid var(--rule);border-radius:10px;
+    padding:17px 19px;margin-bottom:11px}
+  .item .t{font-weight:500;font-size:17px;margin-bottom:4px}
+  .item .d{font-size:15.5px;color:var(--ink-2);line-height:1.75}
+  .item .eg{font-size:15px;color:var(--ink-2);background:var(--accent-soft);
+    border-radius:7px;padding:10px 13px;margin-top:10px;line-height:1.7}
+  p{margin:0 0 14px}
+  .note{border-left:3px solid var(--accent);background:var(--warn-soft);
+    border-radius:0 8px 8px 0;padding:16px 18px;margin:20px 0;font-size:15.5px;
+    color:var(--ink-2);line-height:1.75}
+  .note b{color:var(--ink)}
+  .try{background:var(--surface);border:1px solid var(--accent);border-radius:10px;
+    padding:20px 22px;margin-top:40px}
+  .try .t{font-weight:700;margin-bottom:8px}
+  .try .d{font-size:15.5px;color:var(--ink-2);line-height:1.75}
+  code{background:var(--accent-soft);padding:2px 7px;border-radius:5px;
+    font-size:.92em;font-family:inherit;color:var(--ink)}
+  footer{margin-top:58px;padding-top:22px;border-top:1px solid var(--rule);
+    font-size:14px;color:var(--muted);line-height:1.8}
+  footer a{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../">← Vivian x AI 協作</a>
+
+  <h1>Google Classroom ＋ Gemini 使用指南</h1>
+  <p class="lede">學校的 Google Classroom 裡，現在有一個給學生的 Gemini 學習專區。它會跟老師上傳的課堂教材直接串接，等於孩子手上多了一個隨時可以問的學習助手。</p>
+  <p class="lede">這份是我整理給家長看的：它有什麼、怎麼帶孩子用、要提醒他什麼。</p>
+
+  <h2><span class="n">一</span>六個功能，各解決一種卡點</h2>
+  <p class="sub">在「Gemini 工具包」裡點不同的卡片，對應孩子當下不同的狀況。</p>
+
+  <div class="item">
+    <div class="t">輔助學習：聽不懂的時候</div>
+    <div class="d">課本或作業裡有不懂的概念，讓 AI 當家教，用比較好懂的方式再講一次。</div>
+    <div class="eg">可以這樣問：請用簡單的例子解釋什麼是光合作用。</div>
+  </div>
+
+  <div class="item">
+    <div class="t">考考我：想確認自己會不會</div>
+    <div class="d">考前複習用。讓它針對某個單元出五題，寫完它會馬上批改，還會說明為什麼。</div>
+  </div>
+
+  <div class="item">
+    <div class="t">製作學習卡：要背的東西</div>
+    <div class="d">把課文裡的名詞、歷史事件、英文單字自動整理成字卡，隨時可以翻。</div>
+  </div>
+
+  <div class="item">
+    <div class="t">研讀指南：課文太長抓不到重點</div>
+    <div class="d">面對長篇課文或複雜章節時，自動整理出大綱、關鍵字和結構，先看懂骨架再讀細節。</div>
+  </div>
+
+  <div class="item">
+    <div class="t">生成圖片：抽象的東西看不懂</div>
+    <div class="d">用文字描述產生示意圖。科學原理、歷史場景這種看不見的東西，畫出來比較好理解。適合看圖比看字快的孩子。</div>
+  </div>
+
+  <div class="item">
+    <div class="t">Gemini Notebook：把幾份資料一起看</div>
+    <div class="d">專屬的筆記本空間，可以把多份資料放在一起交叉比對、提問。</div>
+  </div>
+
+  <h2><span class="n">二</span>老師發的講義，可以變成測驗和語音</h2>
+  <p class="sub">這一段是我覺得最值得用的功能。</p>
+
+  <div class="item">
+    <div class="t">自動接住老師上傳的東西</div>
+    <div class="d">老師在 Google Classroom 上傳的 PDF、簡報或文章，會直接同步進來，不用另外複製貼上。</div>
+  </div>
+
+  <div class="item">
+    <div class="t">講義變成測驗和單字卡</div>
+    <div class="d">同一份講義，可以自動變成線上測驗或字卡，直接拿來複習。</div>
+  </div>
+
+  <div class="item">
+    <div class="t">課文變成語音</div>
+    <div class="d">可以把文字教材轉成對話形式的語音，用「聽」的方式複習。通勤、走路、睡前都能用。</div>
+  </div>
+
+  <p>怎麼開始：點 <code>+ 建立課程筆記本</code>，選孩子這學期正在上的科目，系統就會幫那一科建立一個獨立的知識庫。</p>
+
+  <h2><span class="n">三</span>家長要提醒孩子的三件事</h2>
+  <p class="sub">工具給了不等於會用。這三件事比功能重要。</p>
+
+  <div class="note">
+    <b>一、當家教，不是當答案機。</b><br>
+    不建議：把作業題目整個複製貼上要答案。<br>
+    建議：教孩子這樣問——「這道數學題我卡在第二步，請給我一點提示，不要直接告訴我答案。」
+  </div>
+
+  <div class="note">
+    <b>二、AI 講的要回頭查一次。</b><br>
+    AI 有時候會給出看起來很合理、但其實不對的答案。要讓孩子養成習慣：AI 給的解答，回到課本或可靠的來源再確認一次。
+  </div>
+
+  <div class="note">
+    <b>三、不要輸入個人資料。</b><br>
+    提醒孩子：跟 AI 對話的時候，不要打真實姓名、身分證字號、住址或密碼。
+  </div>
+
+  <div class="try">
+    <div class="t">今晚可以先試這一個</div>
+    <div class="d">點 <code>+ 建立課程筆記本</code>，選一個科目（自然或社會都可以），讓它出一份三題的「考考我」。<br>
+    先自己走一次流程，再帶孩子做。三分鐘就好。</div>
+  </div>
+
+  <footer>
+    這份是給家長看的整理，實際畫面和功能名稱以 Google 當下的版本為準。<br>
+    整理：Vivian｜其他工具在 <a href="../">首頁</a>
+  </footer>
+
+</div>
+</body>
+</html>
