@@ -7,81 +7,121 @@
 <meta name="description" content="沒有技術背景的媽媽，和 AI 協作，建立孩子的學習系統。免費工具與家長指南。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
 <style>
   :root{
-    --paper:#FAF8F4; --surface:#fff; --ink:#1E1B16; --ink-2:#4A4438;
-    --muted:#7C7362; --rule:#E4DFD4; --accent:#8A5A2B; --accent-soft:#F3EADD;
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --mark:#FFE58A; --guide:#2F5D50; --guide-soft:#E3EFE9; --tool:#7A4A1E; --tool-soft:#F1E6D6;
   }
   @media (prefers-color-scheme: dark){
-    :root{ --paper:#17150F; --surface:#201D16; --ink:#EFEAE0; --ink-2:#C6BFB0;
-      --muted:#918876; --rule:#332E24; --accent:#D3A063; --accent-soft:#2B2318; }
+    :root{ --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --mark:#6B5410; --guide:#8FCBB4; --guide-soft:#1C2B25; --tool:#E2AE6E; --tool-soft:#2C251B; }
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--paper);color:var(--ink);
     font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
-    font-weight:300;font-size:17px;line-height:1.8;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:640px;margin:0 auto;padding:56px 22px 80px}
-  h1{font-size:27px;font-weight:700;line-height:1.35;margin:0 0 14px;letter-spacing:-.01em}
-  .lede{color:var(--ink-2);margin:0 0 8px}
-  ul.what{list-style:none;margin:18px 0 0;padding:0;display:flex;flex-direction:column;gap:7px}
-  ul.what li{padding-left:20px;position:relative;font-size:16px;color:var(--ink-2)}
-  ul.what li::before{content:"▸";position:absolute;left:0;color:var(--accent)}
-  h2{font-size:14px;font-weight:500;letter-spacing:.12em;color:var(--muted);
-    margin:52px 0 16px;text-transform:none}
+    font-weight:400;font-size:18px;line-height:1.85;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:660px;margin:0 auto;padding:44px 16px 88px}
+
+  /* 開頭 */
+  .who{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;
+    color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:4px 14px;margin-bottom:22px}
+  h1{font-size:32px;font-weight:900;line-height:1.4;margin:0 0 18px;letter-spacing:-.01em}
+  .hl{background:linear-gradient(transparent 58%, var(--mark) 58%);padding:0 2px;white-space:nowrap}
+  .lede{font-size:19px;color:var(--ink-2);margin:0 0 26px}
+
+  .doing{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0;padding:0;list-style:none}
+  .doing li{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 12px;
+    font-size:16px;line-height:1.55;color:var(--ink-2)}
+  .doing b{display:block;font-size:24px;line-height:1;margin-bottom:8px}
+  @media (max-width:520px){ .doing{grid-template-columns:1fr} .doing li{display:flex;gap:12px;align-items:center}
+    .doing b{margin:0;font-size:22px} }
+
+  /* 區塊 */
+  .section{margin-top:60px}
+  .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
+  h2{font-size:24px;font-weight:900;margin:0}
+  .count{font-size:14px;color:var(--muted)}
+  .section-sub{color:var(--muted);font-size:16px;margin:0 0 18px}
+
   .card{display:block;text-decoration:none;color:inherit;background:var(--surface);
-    border:1px solid var(--rule);border-radius:10px;padding:20px 22px;margin-bottom:14px;
-    transition:border-color .15s}
-  .card:hover,.card:focus-visible{border-color:var(--accent);outline:none}
-  .card .t{font-size:18px;font-weight:500;margin-bottom:5px}
-  .card .d{font-size:15px;color:var(--ink-2);line-height:1.7}
-  .card .go{font-size:14px;color:var(--accent);margin-top:10px}
-  footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--rule);
-    font-size:14px;color:var(--muted);line-height:1.8}
+    border:1px solid var(--rule);border-left:6px solid var(--c);border-radius:14px;
+    padding:20px 20px 18px;margin-bottom:16px;transition:transform .15s, box-shadow .15s}
+  .card:hover,.card:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08);outline:none}
+  .card:focus-visible{outline:3px solid var(--c);outline-offset:2px}
+  .guide{--c:var(--guide);--c-soft:var(--guide-soft)}
+  .tool{--c:var(--tool);--c-soft:var(--tool-soft)}
+  .tags{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+  .tag{font-size:13px;font-weight:700;color:var(--c);background:var(--c-soft);border-radius:999px;padding:2px 10px}
+  .new{font-size:13px;font-weight:700;color:#fff;background:#C2410C;border-radius:999px;padding:2px 10px}
+  .card .t{font-size:21px;font-weight:700;line-height:1.45;margin-bottom:6px}
+  .card .d{font-size:17px;color:var(--ink-2);line-height:1.8}
+  .card .d b{color:var(--ink);font-weight:700}
+  .go{display:inline-block;margin-top:12px;font-size:16px;font-weight:700;color:var(--c)}
+
+  footer{margin-top:64px;padding:22px 20px;background:var(--surface);border:1px solid var(--rule);
+    border-radius:14px;color:var(--ink-2);font-size:17px}
+  footer b{color:var(--ink)}
+  footer a{color:var(--accent);font-weight:700}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <h1>沒有技術背景的媽媽，<br>和 AI 協作，建立孩子的學習系統</h1>
-  <p class="lede">這裡放我實際做出來、家裡真的在用的東西。都可以直接打開，不用註冊。</p>
-  <ul class="what">
-    <li>全科學習規劃</li>
-    <li>用 AI 解決孩子學習中的具體問題</li>
-    <li>自製學習工具，免費分享</li>
+  <div class="who">Vivian｜一個用 AI 陪孩子學習的媽媽</div>
+
+  <h1>沒有技術背景的媽媽，<br>和 AI 一起，把<span class="hl">孩子的學習</span>理出一套系統</h1>
+  <p class="lede">這裡放我實際做出來、家裡真的在用的東西。<b>都可以直接打開，不用註冊。</b></p>
+
+  <ul class="doing">
+    <li><b>🗺️</b>全科學習規劃</li>
+    <li><b>🧩</b>用 AI 解決孩子學習中的具體問題</li>
+    <li><b>🛠️</b>自製學習工具，免費分享</li>
   </ul>
 
-  <h2>給家長的指南</h2>
+  <section class="section">
+    <div class="section-head"><h2>給家長的指南</h2><span class="count">2 份</span></div>
+    <p class="section-sub">看完就能照著做，提示詞可以直接複製。</p>
 
-  <a class="card" href="./midterm/">
-    <div class="t">期中考前，每科只抓一件</div>
-    <div class="d">時間不到三個禮拜，不從頭複習。自然、英文、社會各一段可以直接貼的提示詞，每天幾分鐘。</div>
-    <div class="go">打開指南 →</div>
-  </a>
+    <a class="card guide" href="./midterm/">
+      <div class="tags"><span class="new">最新</span><span class="tag">考前複習</span></div>
+      <div class="t">期中考前，每科只抓一件</div>
+      <div class="d">時間不到三個禮拜，<b>不從頭複習</b>。自然、英文、社會各一段可以直接貼的提示詞，每天幾分鐘。</div>
+      <div class="go">打開指南 →</div>
+    </a>
 
-  <a class="card" href="./classroom/">
-    <div class="t">Google Classroom ＋ Gemini 使用指南</div>
-    <div class="d">學校已經開始用 AI 了。這份整理孩子手上那個學習助手有哪些功能、怎麼用，以及家長要提醒孩子的三件事。</div>
-    <div class="go">打開指南 →</div>
-  </a>
+    <a class="card guide" href="./classroom/">
+      <div class="tags"><span class="tag">學校的 AI</span></div>
+      <div class="t">Google Classroom ＋ Gemini 使用指南</div>
+      <div class="d">學校已經開始用 AI 了。這份整理孩子手上那個學習助手有哪些功能、怎麼用，以及<b>家長要提醒孩子的三件事</b>。</div>
+      <div class="go">打開指南 →</div>
+    </a>
+  </section>
 
-  <h2>免費工具</h2>
+  <section class="section">
+    <div class="section-head"><h2>免費工具</h2><span class="count">2 個</span></div>
+    <p class="section-sub">我幫自己孩子做的，打開就能用。</p>
 
-  <a class="card" href="https://viviennelu712.github.io/math-power-timer/">
-    <div class="t">口算能量訓練器</div>
-    <div class="d">把計算練到不佔腦力。孩子解應用題時要同時處理讀題、想方法、算數字，這個只處理最後一項。不排名、不需要帳號，紀錄只留在自己的裝置。</div>
-    <div class="go">打開工具 →</div>
-  </a>
+    <a class="card tool" href="https://viviennelu712.github.io/math-power-timer/">
+      <div class="tags"><span class="tag">數學・計算</span></div>
+      <div class="t">口算能量訓練器</div>
+      <div class="d">把計算練到<b>不佔腦力</b>。孩子解應用題時要同時處理讀題、想方法、算數字，這個只處理最後一項。不排名、不需要帳號，紀錄只留在自己的裝置。</div>
+      <div class="go">打開工具 →</div>
+    </a>
 
-  <a class="card" href="https://viviennelu712.github.io/math-concept-game/">
-    <div class="t">數學概念闖關</div>
-    <div class="d">用遊戲把抽象的數學概念變成看得見的東西，給國小中高年級。打開就能玩。</div>
-    <div class="go">打開工具 →</div>
-  </a>
+    <a class="card tool" href="https://viviennelu712.github.io/math-concept-game/">
+      <div class="tags"><span class="tag">數學・觀念</span></div>
+      <div class="t">數學概念闖關</div>
+      <div class="d">用遊戲把<b>抽象的數學概念變成看得見的東西</b>，給國小中高年級。打開就能玩。</div>
+      <div class="go">打開工具 →</div>
+    </a>
+  </section>
 
   <footer>
-    Vivian x AI 協作<br>
-    這些工具是我自己做的，免費使用。有問題歡迎在我的貼文底下留言。
+    <b>這些都是我自己做的，免費使用。</b><br>
+    有問題，歡迎到 <a href="https://www.threads.com/@vivienne.lu.ww">Threads @vivienne.lu.ww</a> 的貼文底下留言。
   </footer>
 
 </div>
