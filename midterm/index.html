@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>考前每科一件</title>
+<meta name="description" content="期中考剩不到三個禮拜，不從頭複習，每科只抓一件最重要的事，每天幾分鐘。自然、英文、社會各一段可以直接貼的提示詞。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --blank:#FFF3C4; --blank-ink:#5A4300;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --blank:#4A3B10; --blank-ink:#FFE7A0; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-weight:400;font-size:18px;line-height:1.9;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:36px 16px 88px}
+  .back{display:inline-block;font-size:15px;color:var(--accent);text-decoration:none;margin-bottom:28px}
+
+  h1{font-size:30px;font-weight:700;line-height:1.35;margin:0 0 28px;letter-spacing:-.01em}
+  p{margin:0 0 14px}
+
+  .part{margin-top:56px}
+  .part-label{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
+    color:var(--accent);letter-spacing:.06em;margin-bottom:10px}
+  .part-label .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:var(--paper);font-size:15px;letter-spacing:0}
+  h2{font-size:24px;font-weight:700;line-height:1.4;margin:0 0 16px}
+
+  .story p{color:var(--ink-2)}
+  .big{font-size:21px;font-weight:700;color:var(--ink);line-height:1.6;margin:0 0 18px}
+
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+  .steps li{position:relative;padding-left:40px;margin-bottom:16px;color:var(--ink-2)}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:3px;
+    width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);
+    font-size:14px;font-weight:700;display:grid;place-items:center;line-height:1}
+  .steps b{color:var(--ink)}
+
+  /* NotebookLM 畫面示意 */
+  .nlm{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:6px;margin:18px 0 10px;
+    border:1px solid var(--rule);border-radius:12px;padding:6px;background:var(--surface)}
+  .nlm div{border-radius:8px;padding:12px 8px;text-align:center;font-size:14px;line-height:1.5;
+    background:var(--paper);color:var(--muted)}
+  .nlm div b{display:block;font-size:16px;color:var(--ink);margin-bottom:4px}
+  .nlm .mid{background:var(--accent-soft);color:var(--ink-2);outline:2px solid var(--accent)}
+  .nlm-cap{font-size:15px;color:var(--muted);margin:0 0 6px}
+
+  .subject{background:var(--surface);border:1px solid var(--rule);border-radius:16px;
+    padding:24px 20px;margin-top:22px}
+  .subject h3{font-size:23px;font-weight:700;margin:0 0 2px}
+  .where{font-size:15px;color:var(--muted);margin:0 0 16px}
+  .fit{font-size:17px;color:var(--ink-2);margin:0 0 14px}
+  .fit b{color:var(--ink)}
+  .or{font-size:15px;font-weight:700;color:var(--accent);margin:22px 0 8px}
+
+  .prompt{background:var(--accent-soft);border-radius:12px;padding:16px 16px 14px;margin:6px 0 0;
+    font-size:17px;line-height:1.85;color:var(--ink)}
+  .prompt .blank{background:var(--blank);color:var(--blank-ink);border-radius:4px;padding:1px 5px;font-weight:500}
+  .copy{display:block;width:100%;margin-top:12px;font:inherit;font-size:16px;font-weight:700;
+    color:var(--paper);background:var(--accent);border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+  .copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  .use{margin:18px 0 0;padding:0;list-style:none}
+  .use li{position:relative;padding-left:22px;margin-bottom:6px;color:var(--ink-2);font-size:17px}
+  .use li::before{content:"";position:absolute;left:4px;top:.75em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .use-title{font-size:15px;font-weight:700;color:var(--ink);margin:18px 0 6px}
+
+  .tip{border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;
+    padding:14px 16px;margin-top:22px;color:var(--ink-2)}
+  .tip b{color:var(--ink)}
+
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../">← Vivian x AI 協作</a>
+
+  <h1>期中考前，<br>每科只抓一件</h1>
+
+  <!-- 一、我們家 -->
+  <section class="part story">
+    <div class="part-label"><span class="n">1</span>我們家是這麼做的</div>
+    <p class="big">時間不到三個禮拜，我們不從頭複習。<br>每一科只抓一件最重要的事，每天做幾分鐘。</p>
+    <p>我們家不是快樂教育，該重複的還是要重複。</p>
+    <p>但我不想給他太多壓力。他做得到，才會慢慢長出自己的學習能力。</p>
+  </section>
+
+  <!-- 二、你可以怎麼做 -->
+  <section class="part">
+    <div class="part-label"><span class="n">2</span>你可以怎麼做</div>
+    <h2>先選出「那一件」</h2>
+    <ol class="steps">
+      <li>把最近的<b>考卷和作業</b>拿出來。</li>
+      <li>看<b>紅筆最多的是哪一種錯</b>。那一種，就是這一科要抓的那一件。</li>
+      <li>看不出來也沒關係，把考卷拍照丟給 AI，問它：<b>「孩子錯的題目背後，是哪些地方還沒弄懂？」</b></li>
+    </ol>
+  </section>
+
+  <!-- 三、NotebookLM 怎麼用 -->
+  <section class="part">
+    <div class="part-label"><span class="n">3</span>先認識一個畫面</div>
+    <h2>NotebookLM 只要記住三格</h2>
+    <p>自然和社會我們用 NotebookLM（Google 的免費 AI）。打開一個筆記本，畫面分三格：</p>
+    <div class="nlm" aria-label="NotebookLM 畫面示意：左邊來源、中間對話、右邊成品">
+      <div><b>左邊</b>來源<br>放課本</div>
+      <div class="mid"><b>中間</b>對話框<br>貼提示詞</div>
+      <div><b>右邊</b>成品<br>出現在這裡</div>
+    </div>
+    <ol class="steps">
+      <li><b>左邊</b>：把課本或講義放進去（拍照轉 PDF 也可以），<b>只勾這次考試的範圍</b>。</li>
+      <li><b>中間</b>：把下面的提示詞貼進對話框，送出。其他按鈕都不用管。</li>
+      <li><b>右邊</b>：做好的東西會出現在這裡。</li>
+    </ol>
+  </section>
+
+  <!-- 四、各科 -->
+  <section class="part">
+    <div class="part-label"><span class="n">4</span>每一科貼一段</div>
+    <h2>黃色的地方換成你家的</h2>
+    <p>先照貼，出來的東西看一下。不對的話，<b>直接跟它說哪裡不對</b>，它會改。</p>
+
+    <div class="subject">
+      <h3>自然</h3>
+      <p class="where">NotebookLM・學習卡</p>
+      <p class="fit"><b>適合：</b>名詞多、觀念多，要記也要懂。</p>
+      <div class="prompt" id="p1">孩子<span class="blank">五年級</span>，期中考要考<span class="blank">第一、二單元</span>。請只用我勾的課本內容，幫他做 12 張學習卡，讓他每天自己翻：正面一個問題，背面答案加一句為什麼。一半做成「對還是錯」的題目，放他容易搞混的說法。用課本的用詞。</div>
+      <button class="copy" data-for="p1">複製這段</button>
+      <p class="use-title">怎麼用</p>
+      <ul class="use">
+        <li>每天 3 分鐘，翻 5 張。</li>
+        <li>先說答案和理由，再翻過來看。</li>
+        <li>錯的那張，隔天再翻一次。</li>
+      </ul>
+    </div>
+
+    <div class="subject">
+      <h3>英文</h3>
+      <p class="where">Claude 或 ChatGPT・錯題重點</p>
+      <p class="fit"><b>適合：</b>同一種文法一直錯。</p>
+      <div class="prompt" id="p2">這是孩子最近英文錯的題目（照片）。他<span class="blank">五年級</span>，期中考要考<span class="blank">過去式</span>。請找出他錯在哪幾個觀念，最多 4 個。每個觀念整理成一小格重點，再出 5 題一樣題型的練習給他，附答案，排成可以印出來的大字 A4，讓他一個晚上練一格。</div>
+      <button class="copy" data-for="p2">複製這段</button>
+      <p class="use-title">怎麼用</p>
+      <ul class="use">
+        <li>拍照時，錯題訂正前拍最好，看得到他本來寫什麼。</li>
+        <li>一個晚上只做一格，大概十分鐘。</li>
+        <li>做錯的，請他講出來：「本來寫什麼？為什麼錯？」</li>
+      </ul>
+    </div>
+
+    <div class="subject">
+      <h3>社會</h3>
+      <p class="where">NotebookLM・看孩子是哪一種錯，選一段貼</p>
+
+      <p class="or">如果他常把名字、地點、年代搞混</p>
+      <div class="prompt" id="p3">孩子<span class="blank">五年級</span>，期中考要考<span class="blank">第一、二單元</span>。他常把很像的東西搞混。請把這個範圍裡最容易搞混的名稱、地點、年代、特色，做成一張對照表，放在一起比較，用課本的用詞。</div>
+      <button class="copy" data-for="p3">複製這段</button>
+
+      <p class="or">如果是非題看起來眼熟就打勾，沒發現題目偷換了一個字</p>
+      <div class="prompt" id="p4">孩子<span class="blank">五年級</span>，期中考要考<span class="blank">第一、二單元</span>。他寫是非題常常看到熟悉的句子就打勾。請用課本的句子出 20 題是非題，有些原封不動，有些偷偷換掉一個詞。答案要寫出換掉的是哪個詞、原本是什麼。</div>
+      <button class="copy" data-for="p4">複製這段</button>
+
+      <p class="use-title">怎麼用</p>
+      <ul class="use">
+        <li>跟孩子用說的，一次 15 分鐘，不用寫。</li>
+        <li>考試寫是非題時，提醒他把題目裡的名稱一個一個圈起來對。</li>
+      </ul>
+    </div>
+
+    <div class="tip"><b>給孩子之前，媽媽先自己看一遍。</b>AI 偶爾會寫錯字、講錯細節，隨手翻幾張對一下課本就好。</div>
+  </section>
+
+  <footer>
+    做了以後卡在哪裡，回訊息跟我說，我看看怎麼調。<br>— Vivian
+  </footer>
+
+</div>
+<script>
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var text=document.getElementById(b.dataset.for).textContent.trim();
+      var done=function(){b.textContent='已複製，去貼上吧';setTimeout(function(){b.textContent='複製這段'},1800)};
+      if(navigator.clipboard){navigator.clipboard.writeText(text).then(done,function(){fallback(text);done()})}
+      else{fallback(text);done()}
+    });
+  });
+  function fallback(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();
+    try{document.execCommand('copy')}catch(e){}a.remove()}
+</script>
+</body>
+</html>
