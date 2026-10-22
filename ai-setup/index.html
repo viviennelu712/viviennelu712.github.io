@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI 工具下載手冊</title>
+<meta name="description" content="已經訂閱 ChatGPT，卻只用在聊天？一步一步把 ChatGPT 電腦版（工作模式、Codex）、Gemini、Gemini Notebook 裝好，附裝好後第一件可以做的事。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --blank:#FFF3C4; --blank-ink:#5A4300;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --blank:#4A3B10; --blank-ink:#FFE7A0; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-weight:400;font-size:18px;line-height:1.9;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:36px 16px 88px}
+  .back{display:inline-block;font-size:15px;color:var(--accent);text-decoration:none;margin-bottom:28px}
+
+  h1{font-size:30px;font-weight:700;line-height:1.35;margin:0 0 20px;letter-spacing:-.01em}
+  p{margin:0 0 14px}
+  .lede{font-size:19px;color:var(--ink-2)}
+
+  /* 目錄 */
+  .toc{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:8px}
+  .toc a{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);
+    background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:10px 14px;font-size:17px}
+  .toc a span{flex:0 0 auto;display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;
+    background:var(--accent-soft);color:var(--accent);font-size:14px;font-weight:700}
+  .toc small{color:var(--muted);font-size:14px;margin-left:auto;white-space:nowrap}
+
+  .part{margin-top:56px;scroll-margin-top:16px}
+  .part-label{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
+    color:var(--accent);letter-spacing:.06em;margin-bottom:10px}
+  .part-label .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:var(--paper);font-size:15px;letter-spacing:0}
+  h2{font-size:24px;font-weight:700;line-height:1.4;margin:0 0 14px}
+  h3{font-size:19px;font-weight:700;margin:26px 0 10px}
+
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+  .steps li{position:relative;padding-left:40px;margin-bottom:14px;color:var(--ink-2)}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:3px;
+    width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);
+    font-size:14px;font-weight:700;display:grid;place-items:center;line-height:1}
+  .steps b{color:var(--ink)}
+  .key{display:inline-block;background:var(--surface);border:1px solid var(--rule);border-radius:6px;
+    padding:0 7px;font-size:16px;line-height:1.6;color:var(--ink)}
+
+  .dl{display:block;text-align:center;text-decoration:none;font-size:17px;font-weight:700;
+    color:var(--paper);background:var(--accent);border-radius:12px;padding:12px 14px;margin:6px 0 20px}
+  .dl small{display:block;font-weight:400;font-size:14px;opacity:.85}
+  .dl:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  .check{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:18px 20px}
+  .check ul{margin:0;padding:0;list-style:none}
+  .check li{position:relative;padding-left:30px;margin-bottom:8px;color:var(--ink-2)}
+  .check li::before{content:"☐";position:absolute;left:0;top:0;color:var(--accent);font-size:19px}
+  .check b{color:var(--ink)}
+
+  /* 三種模式 */
+  .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 6px}
+  .modes div{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:12px 10px;
+    font-size:15px;line-height:1.6;color:var(--muted)}
+  .modes b{display:block;font-size:17px;color:var(--ink);margin-bottom:4px}
+  .modes .hot{outline:2px solid var(--accent);background:var(--accent-soft);color:var(--ink-2)}
+  @media (max-width:520px){ .modes{grid-template-columns:1fr} }
+
+  /* 哪個做什麼 */
+  .which{width:100%;border-collapse:collapse;font-size:16px;line-height:1.6;margin-top:6px}
+  .which th,.which td{text-align:left;vertical-align:top;padding:10px 8px;border-bottom:1px solid var(--rule)}
+  .which th{white-space:nowrap;color:var(--ink);font-weight:700;width:34%}
+  .which td{color:var(--ink-2)}
+
+  .task{background:var(--surface);border:1px solid var(--rule);border-radius:16px;padding:22px 20px;margin-top:20px}
+  .task h3{margin:0 0 2px;font-size:21px}
+  .where{font-size:15px;color:var(--muted);margin:0 0 14px}
+  .prompt{background:var(--accent-soft);border-radius:12px;padding:16px 16px 14px;margin:6px 0 0;
+    font-size:17px;line-height:1.85;color:var(--ink)}
+  .prompt .blank{background:var(--blank);color:var(--blank-ink);border-radius:4px;padding:1px 5px;font-weight:500}
+  .copy{display:block;width:100%;margin-top:12px;font:inherit;font-size:16px;font-weight:700;
+    color:var(--paper);background:var(--accent);border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+  .copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  .tip{border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;
+    padding:14px 16px;margin-top:20px;color:var(--ink-2)}
+  .tip b{color:var(--ink)}
+
+  details{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:12px 16px;margin-top:10px}
+  summary{cursor:pointer;font-weight:700;color:var(--ink);font-size:17px}
+  details p{margin:10px 0 2px;color:var(--ink-2);font-size:17px}
+
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);color:var(--ink-2)}
+  footer a{color:var(--accent);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../">← Vivian x AI 協作</a>
+
+  <h1>AI 工具下載手冊</h1>
+  <p class="lede">已經在付 ChatGPT 的錢，卻只用來聊天？<br>電腦版還有<b>「工作模式」</b>和<b>「Codex」</b>，同樣的錢，可以讓 AI 直接幫你把事情做完。</p>
+  <p>這份是我幫媽媽們裝的順序。跟著一步一步做，<b>每一個大約五分鐘</b>。</p>
+
+  <ul class="toc">
+    <li><a href="#check"><span>0</span>開始前，看一下你的電腦<small>1 分鐘</small></a></li>
+    <li><a href="#chatgpt"><span>1</span>ChatGPT 電腦版（含工作模式、Codex）<small>5 分鐘</small></a></li>
+    <li><a href="#gemini"><span>2</span>Gemini 電腦版<small>5 分鐘</small></a></li>
+    <li><a href="#notebook"><span>3</span>Gemini Notebook（以前叫 NotebookLM）<small>2 分鐘</small></a></li>
+    <li><a href="#first"><span>4</span>裝好之後，先做這三件事</a></li>
+    <li><a href="#stuck"><span>5</span>卡住了怎麼辦</a></li>
+  </ul>
+
+  <!-- 0 -->
+  <section class="part" id="check">
+    <div class="part-label"><span class="n">0</span>開始前</div>
+    <h2>先看一下你的電腦和帳號</h2>
+    <p>點螢幕最左上角的<b>蘋果圖示</b> →「關於這台 Mac」。</p>
+    <div class="check">
+      <ul>
+        <li><b>晶片</b>寫的是「Apple M1」「M2」「M3」⋯⋯這一類（不是 Intel）。</li>
+        <li><b>macOS</b> 是 15（Sequoia）或更新的版本。太舊的話，先到「系統設定 → 一般 → 軟體更新」更新。</li>
+        <li>知道你<b>付 ChatGPT 錢的是哪一個帳號</b>（用 Google、Apple 還是 Email 登入的）。</li>
+        <li>有一個 <b>Google 帳號</b>（Gmail 就可以）。</li>
+      </ul>
+    </div>
+    <div class="tip"><b>帳號最容易出錯。</b>手機上用哪個方式登入 ChatGPT，電腦就用一模一樣的方式登入，不然會看不到你已經付費的方案。</div>
+  </section>
+
+  <!-- 1 -->
+  <section class="part" id="chatgpt">
+    <div class="part-label"><span class="n">1</span>ChatGPT 電腦版</div>
+    <h2>一個 App，三種用法</h2>
+    <p>現在的 ChatGPT 電腦版，<b>Codex 已經放在裡面</b>，裝一個就好。</p>
+    <a class="dl" href="https://chatgpt.com/download" target="_blank" rel="noopener">前往 ChatGPT 下載頁<small>chatgpt.com/download</small></a>
+    <ol class="steps">
+      <li>在下載頁按<b>「下載桌面版 ChatGPT」</b>（選 Mac）。</li>
+      <li>打開「<b>下載項目</b>」資料夾，雙擊剛下載的檔案（檔名結尾是 .dmg）。</li>
+      <li>跳出一個小視窗，把 <b>ChatGPT 圖示拖進旁邊的「應用程式」資料夾</b>。</li>
+      <li>到「應用程式」裡雙擊 ChatGPT。如果問「這是從網際網路下載的 App，確定要打開嗎？」→ 按<b>「打開」</b>。</li>
+      <li><b>登入</b>：用你付費的那個帳號、同一種方式登入。</li>
+      <li>建議順手在 Dock 上的圖示按右鍵 →「選項」→<b>「保留在 Dock 中」</b>，之後一點就開。</li>
+    </ol>
+
+    <h3>打開後，你會看到三種用法</h3>
+    <div class="modes">
+      <div><b>聊天</b>問問題、討論想法。你平常在用的就是這個。</div>
+      <div class="hot"><b>工作</b>交代一件事，它自己查資料、做出文件、表格、簡報。</div>
+      <div class="hot"><b>Codex</b>幫你做出能打開的小工具，例如閃卡網頁。不用會寫程式。</div>
+    </div>
+    <p style="font-size:16px;color:var(--muted)">左上角可以切換 ChatGPT／Codex，畫面上方可以切換聊天／工作。工作模式要 Plus 以上的方案，而且是陸續開放，沒看到的話先把 App 更新到最新版。</p>
+
+    <h3>第一次用 Codex 前，先準備一個資料夾</h3>
+    <ol class="steps">
+      <li>在「文件」裡新增一個資料夾，取名<b>「AI 工作區」</b>。</li>
+      <li>Codex 問你要在哪個資料夾工作時，<b>選這個資料夾</b>。它做出來的東西都會放在這裡，不會跑去動你其他的檔案。</li>
+      <li>它要權限時會先問你。<b>一開始用預設的就好，不要選「全部允許」。</b></li>
+    </ol>
+  </section>
+
+  <!-- 2 -->
+  <section class="part" id="gemini">
+    <div class="part-label"><span class="n">2</span>Gemini 電腦版</div>
+    <h2>Google 的 AI，免費就能用</h2>
+    <p>跟 Google 的東西（Gmail、雲端硬碟、相簿）接得最順，也可以直接問它你螢幕上正在看的東西。</p>
+    <a class="dl" href="https://gemini.google/mac" target="_blank" rel="noopener">前往 Gemini 下載頁<small>gemini.google/mac</small></a>
+    <ol class="steps">
+      <li>按<b>「Download for Mac」</b>（下載 Mac 版）。</li>
+      <li>一樣到「下載項目」雙擊 .dmg 檔，把 <b>Gemini 圖示拖進「應用程式」</b>。</li>
+      <li>打開 Gemini，用你的 <b>Google 帳號登入</b>。</li>
+      <li>跳出要權限的視窗時，看清楚是 Gemini 再按允許。</li>
+    </ol>
+  </section>
+
+  <!-- 3 -->
+  <section class="part" id="notebook">
+    <div class="part-label"><span class="n">3</span>Gemini Notebook</div>
+    <h2>放課本進去，它只根據課本回答</h2>
+    <p>以前叫 NotebookLM，今年改名叫 Gemini Notebook。<b>不用下載</b>，用瀏覽器打開就好。</p>
+    <a class="dl" href="https://notebook.google.com" target="_blank" rel="noopener">打開 Gemini Notebook<small>notebook.google.com</small></a>
+    <ol class="steps">
+      <li>用你的 <b>Google 帳號登入</b>（跟 Gemini 同一個）。</li>
+      <li>把這一頁<b>加入書籤</b>：在網址列按 <span class="key">⌘</span> + <span class="key">D</span>。</li>
+      <li>手機也想用的話，到 App Store 搜尋「Gemini Notebook」或「NotebookLM」。</li>
+    </ol>
+    <p>打開一個筆記本，畫面分三格：<b>左邊放課本</b>、<b>中間跟它對話</b>、<b>右邊是它做好的東西</b>（學習卡、測驗、簡報都在這）。</p>
+  </section>
+
+  <!-- 4 -->
+  <section class="part" id="first">
+    <div class="part-label"><span class="n">4</span>裝好之後</div>
+    <h2>先做這三件事，練習怎麼交代它</h2>
+    <p>裝好只是第一步。真正會用，是<b>知道怎麼跟它說</b>。三個習慣：</p>
+    <ol class="steps">
+      <li><b>說清楚是給誰用的</b>：孩子幾年級、要拿來做什麼。</li>
+      <li><b>給它材料</b>：課本照片、考卷、檔案，直接丟進去，比你打字描述準。</li>
+      <li><b>不對就直接說哪裡不對</b>，它會改。不用重來，也不用客氣。</li>
+    </ol>
+    <p>黃色的地方換成你家的。</p>
+
+    <div class="task">
+      <h3>做一個閃卡網頁</h3>
+      <p class="where">ChatGPT 電腦版・Codex</p>
+      <div class="prompt" id="p1">我完全不會寫程式。請在這個資料夾裡，幫我做一個孩子可以自己翻的閃卡網頁。孩子<span class="blank">五年級</span>，內容是我附上的<span class="blank">社會課本第一單元</span>照片。做 15 張：正面一個問題，背面答案，用課本的用詞。做好之後，用簡單的話告訴我怎麼打開。</div>
+      <button class="copy" data-for="p1">複製這段</button>
+    </div>
+
+    <div class="task">
+      <h3>把一團事情整理成一頁</h3>
+      <p class="where">ChatGPT 電腦版・工作</p>
+      <div class="prompt" id="p2">這是孩子這週的<span class="blank">聯絡簿和學校通知</span>照片。請幫我整理成一頁可以印出來的清單：哪天要交什麼、要準備什麼、哪天考試。照日期排，字大一點。</div>
+      <button class="copy" data-for="p2">複製這段</button>
+    </div>
+
+    <div class="task">
+      <h3>讓它只用課本講重點</h3>
+      <p class="where">Gemini Notebook・先把課本放進左邊</p>
+      <div class="prompt" id="p3">孩子<span class="blank">五年級</span>，正在學<span class="blank">自然第二單元</span>。請只根據我放的課本，用他聽得懂的話，講這一單元最重要的三件事，每件附一個生活裡的例子。</div>
+      <button class="copy" data-for="p3">複製這段</button>
+    </div>
+
+    <div class="tip"><b>給孩子之前，媽媽先自己看一遍。</b>AI 偶爾會寫錯字、講錯細節，隨手對一下課本就好。</div>
+  </section>
+
+  <!-- 5 -->
+  <section class="part" id="stuck">
+    <div class="part-label"><span class="n">5</span>卡住了</div>
+    <h2>最常遇到的幾種狀況</h2>
+
+    <details>
+      <summary>下載完找不到檔案</summary>
+      <p>打開 Finder（Dock 最左邊那個笑臉），點左邊的「下載項目」，最上面那個就是。</p>
+    </details>
+    <details>
+      <summary>登入後，好像不是付費版</summary>
+      <p>八成是登入方式跟手機不一樣。先登出，用手機上同一種方式（Google／Apple／Email）重新登入。</p>
+    </details>
+    <details>
+      <summary>找不到「工作」模式</summary>
+      <p>工作模式要 Plus 以上的方案，而且是一批一批開放。先點螢幕最上方的「ChatGPT」→「檢查更新」，過幾天再看一次。</p>
+    </details>
+    <details>
+      <summary>Gemini 裝不起來</summary>
+      <p>回到第 0 步看一下：要 M 系列晶片、macOS 15 以上。不符合的話，先用網頁版 gemini.google.com，功能差不多。</p>
+    </details>
+    <details>
+      <summary>它做出來的東西不是我要的</summary>
+      <p>這很正常，不是你不會用。直接跟它說「哪裡不對、你想要什麼樣子」，通常改兩三次就對了。</p>
+    </details>
+  </section>
+
+  <footer>
+    裝的時候卡在哪一步，到 <a href="https://www.threads.com/@vivienne.lu.ww">Threads @vivienne.lu.ww</a> 留言或傳訊息給我，我看看怎麼幫你。<br>— Vivian
+  </footer>
+
+</div>
+<script>
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var text=document.getElementById(b.dataset.for).textContent.trim();
+      var done=function(){b.textContent='已複製，去貼上吧';setTimeout(function(){b.textContent='複製這段'},1800)};
+      if(navigator.clipboard){navigator.clipboard.writeText(text).then(done,function(){fallback(text);done()})}
+      else{fallback(text);done()}
+    });
+  });
+  function fallback(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();
+    try{document.execCommand('copy')}catch(e){}a.remove()}
+</script>
+</body>
+</html>
