@@ -5,128 +5,222 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vivian x AI 協作</title>
 <meta name="description" content="沒有技術背景的媽媽，和 AI 協作，建立孩子的學習系統。免費工具與家長指南。">
+<meta name="theme-color" content="#FFF6F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1A1117" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="./favicon.svg" type="image/svg+xml">
+<link rel="icon" href="./favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="./apple-touch-icon.png">
+<link rel="manifest" href="./site.webmanifest">
+<meta name="apple-mobile-web-app-title" content="Vivian x AI">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap">
 <style>
   :root{
-    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
-    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
-    --mark:#FFE58A; --guide:#2F5D50; --guide-soft:#E3EFE9; --tool:#7A4A1E; --tool-soft:#F1E6D6;
+    --paper:#FFF6F4; --glass:rgba(255,255,255,.74); --glass-strong:rgba(255,255,255,.9);
+    --ink:#3B2530; --ink-2:#5B4350; --muted:#806371; --rule:rgba(217,81,127,.16);
+    --rose:#E0608C; --rose-2:#F59BB8; --rose-ink:#B23A66; --rose-soft:#FDE6EE;
+    --lilac:#9A6BD6; --lilac-2:#C7A8F2; --lilac-ink:#6E47AE; --lilac-soft:#F1E9FC;
+    --peach:#F2946E; --peach-2:#FFC2A6;
+    --mark:#FFCADB; --shadow:rgba(178,58,102,.16);
+    --blob1:#FFC4D6; --blob2:#E3D1FF; --blob3:#FFD9C7; --on-accent:#fff;
   }
   @media (prefers-color-scheme: dark){
-    :root{ --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
-      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
-      --mark:#6B5410; --guide:#8FCBB4; --guide-soft:#1C2B25; --tool:#E2AE6E; --tool-soft:#2C251B; }
+    :root{ --paper:#1A1117; --glass:rgba(42,27,36,.72); --glass-strong:rgba(48,31,41,.92);
+      --ink:#FBEFF4; --ink-2:#EBD6E0; --muted:#C3A6B4; --rule:rgba(255,150,190,.16);
+      --rose:#FF8DB4; --rose-2:#FFB3CC; --rose-ink:#FFA8C6; --rose-soft:rgba(255,141,180,.14);
+      --lilac:#C3A6FF; --lilac-2:#DCC9FF; --lilac-ink:#D2BCFF; --lilac-soft:rgba(195,166,255,.14);
+      --peach:#FFAE8C; --peach-2:#FFCBB4;
+      --mark:rgba(255,141,180,.4); --shadow:rgba(0,0,0,.45);
+      --blob1:#5A2440; --blob2:#3B2A5C; --blob3:#4F2E2A; --on-accent:#3A1428; }
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);min-height:100vh;
     font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
-    font-weight:400;font-size:18px;line-height:1.85;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:660px;margin:0 auto;padding:44px 16px 88px}
+    font-weight:400;font-size:18px;line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+
+  /* 背景：柔和漂浮的色塊 */
+  .bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+  .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;animation:drift 22s ease-in-out infinite alternate}
+  .b1{width:460px;height:460px;background:var(--blob1);top:-140px;left:-120px}
+  .b2{width:420px;height:420px;background:var(--blob2);top:28%;right:-160px;animation-duration:26s;animation-delay:-6s}
+  .b3{width:380px;height:380px;background:var(--blob3);bottom:-140px;left:12%;animation-duration:30s;animation-delay:-12s}
+  .bg::after{content:"";position:absolute;inset:0;
+    background-image:radial-gradient(rgba(178,58,102,.07) 1px, transparent 1px);background-size:22px 22px;
+    -webkit-mask-image:linear-gradient(to bottom, #000, transparent 70%);mask-image:linear-gradient(to bottom, #000, transparent 70%)}
+  @keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,30px) scale(1.08)}100%{transform:translate(-30px,50px) scale(.95)}}
+
+  .wrap{max-width:680px;margin:0 auto;padding:48px 18px 88px}
+
+  /* 進場動畫 */
+  .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 90ms)}
+  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
   /* 開頭 */
-  .who{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:700;
-    color:var(--accent);background:var(--accent-soft);border-radius:999px;padding:4px 14px;margin-bottom:22px}
-  h1{font-size:32px;font-weight:900;line-height:1.4;margin:0 0 18px;letter-spacing:-.01em}
-  .hl{background:linear-gradient(transparent 58%, var(--mark) 58%);padding:0 2px;white-space:nowrap}
-  .lede{font-size:19px;color:var(--ink-2);margin:0 0 26px}
+  .hero{position:relative}
+  .spark{position:absolute;color:var(--rose);opacity:.85;animation:twinkle 3.2s ease-in-out infinite}
+  .spark.s1{width:26px;top:2px;right:4%}
+  .spark.s2{width:14px;top:44px;right:-1%;color:var(--lilac);animation-delay:-1.2s}
+  .spark.s3{width:12px;top:-10px;right:15%;color:var(--peach);animation-delay:-2.1s}
+  @keyframes twinkle{0%,100%{transform:scale(1) rotate(0);opacity:.85}50%{transform:scale(.6) rotate(25deg);opacity:.35}}
 
-  .doing{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0;padding:0;list-style:none}
-  .doing li{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px 12px;
-    font-size:16px;line-height:1.55;color:var(--ink-2)}
-  .doing b{display:block;font-size:24px;line-height:1;margin-bottom:8px}
-  @media (max-width:520px){ .doing{grid-template-columns:1fr} .doing li{display:flex;gap:12px;align-items:center}
-    .doing b{margin:0;font-size:22px} }
+  .who{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
+    color:var(--rose-ink);background:var(--glass-strong);border:1px solid var(--rule);
+    border-radius:999px;padding:5px 16px 5px 5px;margin-bottom:26px;
+    box-shadow:0 6px 18px -8px var(--shadow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+  .who img{width:30px;height:30px;border-radius:9px;display:block;box-shadow:0 3px 8px -2px rgba(224,96,140,.5)}
+
+  h1{font-family:"Noto Serif TC","Songti TC",serif;font-size:clamp(28px,6.2vw,38px);font-weight:900;
+    line-height:1.45;margin:0 0 20px;letter-spacing:.01em;color:var(--ink);text-wrap:balance}
+  .hl{background:linear-gradient(transparent 60%, var(--mark) 60%, var(--mark) 92%, transparent 92%);
+    padding:0 4px;white-space:nowrap;border-radius:4px}
+  .nw{white-space:nowrap}
+  .lede{font-size:19px;color:var(--ink-2);margin:0 0 30px}
+  .lede b{color:var(--rose-ink)}
+
+  .doing{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0;padding:0;list-style:none}
+  .doing li{background:var(--glass);border:1px solid var(--rule);border-radius:20px;padding:18px 16px 16px;
+    font-size:16px;font-weight:500;line-height:1.55;color:var(--ink-2);text-wrap:pretty;
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    box-shadow:0 10px 26px -16px var(--shadow);transition:transform .25s, box-shadow .25s}
+  .doing li:hover{transform:translateY(-3px);box-shadow:0 16px 32px -14px var(--shadow)}
+  .ico{display:grid;place-items:center;width:46px;height:46px;border-radius:15px;margin-bottom:12px;color:var(--on-accent);
+    background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 16px -8px var(--g1)}
+  .ico svg{width:24px;height:24px}
+  .doing li:nth-child(1){--g1:var(--rose);--g2:var(--rose-2)}
+  .doing li:nth-child(2){--g1:var(--lilac);--g2:var(--lilac-2)}
+  .doing li:nth-child(3){--g1:var(--peach);--g2:var(--peach-2)}
+  @media (max-width:560px){ .doing{grid-template-columns:1fr;gap:10px}
+    .doing li{display:flex;gap:14px;align-items:center;padding:14px 16px}
+    .ico{margin:0;flex:0 0 auto;width:42px;height:42px;border-radius:13px} }
 
   /* 區塊 */
-  .section{margin-top:60px}
-  .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:6px}
-  h2{font-size:24px;font-weight:900;margin:0}
-  .count{font-size:14px;color:var(--muted)}
-  .section-sub{color:var(--muted);font-size:16px;margin:0 0 18px}
+  .section{margin-top:68px}
+  .section-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+  .sec-ico{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;color:var(--on-accent);flex:0 0 auto;
+    background:linear-gradient(135deg,var(--c),var(--c2));box-shadow:0 8px 16px -8px var(--c)}
+  .sec-ico svg{width:20px;height:20px}
+  h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:25px;font-weight:900;margin:0;letter-spacing:.02em}
+  .count{font-size:13px;font-weight:700;color:var(--c-ink);background:var(--c-soft);border-radius:999px;padding:2px 11px}
+  .section-sub{color:var(--muted);font-size:16px;margin:0 0 20px 50px}
+  @media (max-width:560px){ .section-sub{margin-left:0} }
 
-  .card{display:block;text-decoration:none;color:inherit;background:var(--surface);
-    border:1px solid var(--rule);border-left:6px solid var(--c);border-radius:14px;
-    padding:20px 20px 18px;margin-bottom:16px;transition:transform .15s, box-shadow .15s}
-  .card:hover,.card:focus-visible{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.08);outline:none}
-  .card:focus-visible{outline:3px solid var(--c);outline-offset:2px}
-  .guide{--c:var(--guide);--c-soft:var(--guide-soft)}
-  .tool{--c:var(--tool);--c-soft:var(--tool-soft)}
-  .tags{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap}
-  .tag{font-size:13px;font-weight:700;color:var(--c);background:var(--c-soft);border-radius:999px;padding:2px 10px}
-  .new{font-size:13px;font-weight:700;color:#fff;background:#C2410C;border-radius:999px;padding:2px 10px}
-  .card .t{font-size:21px;font-weight:700;line-height:1.45;margin-bottom:6px}
-  .card .d{font-size:17px;color:var(--ink-2);line-height:1.8}
-  .card .d b{color:var(--ink);font-weight:700}
-  .go{display:inline-block;margin-top:12px;font-size:16px;font-weight:700;color:var(--c)}
+  .guide{--c:var(--rose);--c2:var(--rose-2);--c-ink:var(--rose-ink);--c-soft:var(--rose-soft)}
+  .tool{--c:var(--lilac);--c2:var(--lilac-2);--c-ink:var(--lilac-ink);--c-soft:var(--lilac-soft)}
 
-  footer{margin-top:64px;padding:22px 20px;background:var(--surface);border:1px solid var(--rule);
-    border-radius:14px;color:var(--ink-2);font-size:17px}
+  .card{position:relative;overflow:hidden;display:block;text-decoration:none;color:inherit;
+    background:var(--glass);border:1px solid var(--rule);border-radius:24px;
+    padding:22px 22px 20px 26px;margin-bottom:16px;
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    box-shadow:0 1px 2px rgba(120,40,70,.04),0 12px 30px -18px var(--shadow);
+    transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, border-color .3s}
+  .card::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 6px 6px 0;
+    background:linear-gradient(var(--c),var(--c2))}
+  .card::after{content:"";position:absolute;width:220px;height:220px;right:-90px;top:-110px;border-radius:50%;
+    background:radial-gradient(var(--c-soft), transparent 70%);opacity:.9;transition:transform .5s;pointer-events:none}
+  .card:hover,.card:focus-visible{transform:translateY(-4px);border-color:color-mix(in srgb, var(--c) 40%, transparent);
+    box-shadow:0 2px 4px rgba(120,40,70,.05),0 22px 40px -18px color-mix(in srgb, var(--c) 55%, transparent);outline:none}
+  .card:hover::after{transform:scale(1.25)}
+  .card:focus-visible{outline:3px solid var(--c);outline-offset:3px}
+  .card > *{position:relative;z-index:1}
+  .tags{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+  .tag{font-size:13px;font-weight:700;color:var(--c-ink);background:var(--c-soft);border-radius:999px;padding:3px 12px}
+  .new{font-size:13px;font-weight:700;color:#fff;border-radius:999px;padding:3px 12px;
+    background:linear-gradient(135deg,#F2577F,#FF8A70);box-shadow:0 4px 12px -4px rgba(242,87,127,.6)}
+  .card .t{font-size:21px;font-weight:700;line-height:1.45;margin-bottom:6px;color:var(--ink)}
+  .card .d{font-size:17px;color:var(--ink-2);line-height:1.8;text-wrap:pretty}
+  .card .d b{color:var(--ink);font-weight:700;background:linear-gradient(transparent 65%, var(--c-soft) 65%)}
+  .go{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:15px;font-weight:700;
+    color:var(--c-ink);background:var(--c-soft);border-radius:999px;padding:6px 16px;transition:background .3s,color .3s}
+  .arr{display:inline-block;transition:transform .3s}
+  .card:hover .go,.card:focus-visible .go{background:linear-gradient(135deg,var(--c),var(--c2));color:var(--on-accent)}
+  .card:hover .arr,.card:focus-visible .arr{transform:translateX(4px)}
+
+  footer{position:relative;overflow:hidden;margin-top:72px;padding:26px 24px 24px;border-radius:24px;
+    background:linear-gradient(135deg,var(--rose-soft),var(--lilac-soft));border:1px solid var(--rule);
+    color:var(--ink-2);font-size:17px;box-shadow:0 12px 30px -18px var(--shadow)}
+  footer .heart{display:block;width:30px;height:30px;color:var(--rose);margin-bottom:8px}
   footer b{color:var(--ink)}
-  footer a{color:var(--accent);font-weight:700}
+  footer a{color:var(--rose-ink);font-weight:700;text-decoration:none;
+    background:linear-gradient(transparent 70%, var(--mark) 70%);transition:background .3s}
+  footer a:hover{background:linear-gradient(transparent 0, var(--mark) 0)}
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important}
+  }
 </style>
 </head>
 <body>
+<div class="bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
 <div class="wrap">
 
-  <div class="who">Vivian｜一個用 AI 陪孩子學習的媽媽</div>
+  <header class="hero">
+    <svg class="spark s1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>
+    <svg class="spark s2" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>
+    <svg class="spark s3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>
 
-  <h1>沒有技術背景的媽媽，<br>和 AI 一起，把<span class="hl">孩子的學習</span>理出一套系統</h1>
-  <p class="lede">這裡放我實際做出來、家裡真的在用的東西。<b>都可以直接打開，不用註冊。</b></p>
+    <div class="who rise" style="--i:0"><img src="./favicon.svg" alt="" width="30" height="30">Vivian｜一個用 AI 陪孩子學習的媽媽</div>
 
-  <ul class="doing">
-    <li><b>🗺️</b>全科學習規劃</li>
-    <li><b>🧩</b>用 AI 解決孩子學習中的具體問題</li>
-    <li><b>🛠️</b>自製學習工具，免費分享</li>
-  </ul>
+    <h1 class="rise" style="--i:1">沒有技術背景的媽媽，<br>和 AI 一起，把<span class="hl">孩子的學習</span><span class="nw">理出一套系統</span></h1>
+    <p class="lede rise" style="--i:2">這裡放我實際做出來、家裡真的在用的東西。<b>都可以直接打開，不用註冊。</b></p>
 
-  <section class="section">
-    <div class="section-head"><h2>給家長的指南</h2><span class="count">3 份</span></div>
+    <ul class="doing">
+      <li class="rise" style="--i:3"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6.5v13L9 17l6 2.5 6-2.5v-13L15 6.5 9 4z"/><path d="M9 4v13M15 6.5v13"/></svg></span>全科學習規劃</li>
+      <li class="rise" style="--i:4"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3h-4A1.5 1.5 0 0 0 4 4.5v4h1.5a2 2 0 1 1 0 4H4v7A1.5 1.5 0 0 0 5.5 21h4v-1.5a2 2 0 1 1 4 0V21h5a1.5 1.5 0 0 0 1.5-1.5v-5h-1.5a2 2 0 1 1 0-4H20v-6A1.5 1.5 0 0 0 18.5 3h-5v1.5a2 2 0 1 1-4 0z"/></svg></span>用 AI 解決孩子學習中的具體問題</li>
+      <li class="rise" style="--i:5"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9.5 3 12 8 12 8s2.5-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg></span>自製學習工具，免費分享</li>
+    </ul>
+  </header>
+
+  <main>
+  <section class="section guide">
+    <div class="section-head"><span class="sec-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></span><h2>給家長的指南</h2><span class="count">3 份</span></div>
     <p class="section-sub">看完就能照著做，提示詞可以直接複製。</p>
 
-    <a class="card guide" href="./ai-setup/">
+    <a class="card guide rise" style="--i:6" href="./ai-setup/">
       <div class="tags"><span class="new">最新</span><span class="tag">從這裡開始</span></div>
       <div class="t">AI 工具下載手冊</div>
       <div class="d">三個工具，每個三步驟：<b>ChatGPT 電腦版、Gemini、Gemini Notebook</b>。</div>
-      <div class="go">打開手冊 →</div>
+      <div class="go">打開手冊 <span class="arr">→</span></div>
     </a>
 
-    <a class="card guide" href="./midterm/">
+    <a class="card guide rise" style="--i:7" href="./midterm/">
       <div class="tags"><span class="tag">考前複習</span></div>
       <div class="t">期中考前，每科只抓一件</div>
       <div class="d">時間不到三個禮拜，<b>不從頭複習</b>。自然、英文、社會各一段可以直接貼的提示詞，每天幾分鐘。</div>
-      <div class="go">打開指南 →</div>
+      <div class="go">打開指南 <span class="arr">→</span></div>
     </a>
 
-    <a class="card guide" href="./classroom/">
+    <a class="card guide rise" style="--i:8" href="./classroom/">
       <div class="tags"><span class="tag">學校的 AI</span></div>
       <div class="t">Google Classroom ＋ Gemini 使用指南</div>
       <div class="d">學校已經開始用 AI 了。這份整理孩子手上那個學習助手有哪些功能、怎麼用，以及<b>家長要提醒孩子的三件事</b>。</div>
-      <div class="go">打開指南 →</div>
+      <div class="go">打開指南 <span class="arr">→</span></div>
     </a>
   </section>
 
-  <section class="section">
-    <div class="section-head"><h2>免費工具</h2><span class="count">2 個</span></div>
+  <section class="section tool">
+    <div class="section-head"><span class="sec-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><h2>免費工具</h2><span class="count">2 個</span></div>
     <p class="section-sub">我幫自己孩子做的，打開就能用。</p>
 
-    <a class="card tool" href="https://viviennelu712.github.io/math-power-timer/">
+    <a class="card tool rise" style="--i:9" href="https://viviennelu712.github.io/math-power-timer/">
       <div class="tags"><span class="tag">數學・計算</span></div>
       <div class="t">口算能量訓練器</div>
       <div class="d">把計算練到<b>不佔腦力</b>。孩子解應用題時要同時處理讀題、想方法、算數字，這個只處理最後一項。不排名、不需要帳號，紀錄只留在自己的裝置。</div>
-      <div class="go">打開工具 →</div>
+      <div class="go">打開工具 <span class="arr">→</span></div>
     </a>
 
-    <a class="card tool" href="https://viviennelu712.github.io/math-concept-game/">
+    <a class="card tool rise" style="--i:10" href="https://viviennelu712.github.io/math-concept-game/">
       <div class="tags"><span class="tag">數學・觀念</span></div>
       <div class="t">數學概念闖關</div>
       <div class="d">用遊戲把<b>抽象的數學概念變成看得見的東西</b>，給國小中高年級。打開就能玩。</div>
-      <div class="go">打開工具 →</div>
+      <div class="go">打開工具 <span class="arr">→</span></div>
     </a>
   </section>
+  </main>
 
   <footer>
+    <svg class="heart" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4h2c.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21z"/></svg>
     <b>這些都是我自己做的，免費使用。</b><br>
     有問題，歡迎到 <a href="https://www.threads.com/@vivienne.lu.ww">Threads @vivienne.lu.ww</a> 的貼文底下留言。
   </footer>

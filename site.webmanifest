@@ -1,0 +1,17 @@
+{
+  "name": "Vivian x AI 協作",
+  "short_name": "Vivian x AI",
+  "description": "沒有技術背景的媽媽，和 AI 協作，建立孩子的學習系統。免費工具與家長指南。",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFF6F4",
+  "theme_color": "#E0608C",
+  "lang": "zh-Hant",
+  "icons": [
+    { "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
