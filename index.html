@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vivian x AI 協作</title>
 <meta name="description" content="沒有技術背景的媽媽，和 AI 協作，建立孩子的學習系統。免費工具與家長指南。">
-<meta name="theme-color" content="#FFF6F4" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#1A1117" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FAF7F4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1B1819" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="./favicon.svg" type="image/svg+xml">
 <link rel="icon" href="./favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="./apple-touch-icon.png">
@@ -14,25 +14,25 @@
 <meta name="apple-mobile-web-app-title" content="Vivian x AI">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Noto+Serif+TC:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap">
 <style>
   :root{
-    --paper:#FFF6F4; --glass:rgba(255,255,255,.74); --glass-strong:rgba(255,255,255,.9);
-    --ink:#3B2530; --ink-2:#5B4350; --muted:#806371; --rule:rgba(217,81,127,.16);
-    --rose:#E0608C; --rose-2:#F59BB8; --rose-ink:#B23A66; --rose-soft:#FDE6EE;
-    --lilac:#9A6BD6; --lilac-2:#C7A8F2; --lilac-ink:#6E47AE; --lilac-soft:#F1E9FC;
-    --peach:#F2946E; --peach-2:#FFC2A6;
-    --mark:#FFCADB; --shadow:rgba(178,58,102,.16);
-    --blob1:#FFC4D6; --blob2:#E3D1FF; --blob3:#FFD9C7; --on-accent:#fff;
+    --paper:#FAF7F4; --glass:#FFFFFF; --glass-strong:#FFFFFF;
+    --ink:#2A2326; --ink-2:#4A4045; --muted:#7A6E73; --rule:#E8E0DC;
+    --rose:#C24E6E; --rose-2:#C24E6E; --rose-ink:#A23C5A; --rose-soft:#F8E9EC;
+    --lilac:#3F7A80; --lilac-2:#3F7A80; --lilac-ink:#2F6268; --lilac-soft:#E5F0F0;
+    --peach:#B7793A; --peach-2:#B7793A;
+    --mark:#F6D9E0; --shadow:rgba(60,40,45,.08);
+    --on-accent:#fff;
   }
   @media (prefers-color-scheme: dark){
-    :root{ --paper:#1A1117; --glass:rgba(42,27,36,.72); --glass-strong:rgba(48,31,41,.92);
-      --ink:#FBEFF4; --ink-2:#EBD6E0; --muted:#C3A6B4; --rule:rgba(255,150,190,.16);
-      --rose:#FF8DB4; --rose-2:#FFB3CC; --rose-ink:#FFA8C6; --rose-soft:rgba(255,141,180,.14);
-      --lilac:#C3A6FF; --lilac-2:#DCC9FF; --lilac-ink:#D2BCFF; --lilac-soft:rgba(195,166,255,.14);
-      --peach:#FFAE8C; --peach-2:#FFCBB4;
-      --mark:rgba(255,141,180,.4); --shadow:rgba(0,0,0,.45);
-      --blob1:#5A2440; --blob2:#3B2A5C; --blob3:#4F2E2A; --on-accent:#3A1428; }
+    :root{ --paper:#1B1819; --glass:#252022; --glass-strong:#252022;
+      --ink:#F3ECEE; --ink-2:#DCD2D5; --muted:#A99CA1; --rule:#3A3235;
+      --rose:#E7869F; --rose-2:#E7869F; --rose-ink:#F0A3B6; --rose-soft:rgba(231,134,159,.14);
+      --lilac:#7FB8BD; --lilac-2:#7FB8BD; --lilac-ink:#9CCBCF; --lilac-soft:rgba(127,184,189,.14);
+      --peach:#D9A066; --peach-2:#D9A066;
+      --mark:rgba(231,134,159,.3); --shadow:rgba(0,0,0,.3);
+      --on-accent:#1B1819; }
   }
   *{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%}
@@ -40,38 +40,20 @@
     font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
     font-weight:400;font-size:18px;line-height:1.85;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-  /* 背景：柔和漂浮的色塊 */
-  .bg{position:fixed;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
-  .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;animation:drift 22s ease-in-out infinite alternate}
-  .b1{width:460px;height:460px;background:var(--blob1);top:-140px;left:-120px}
-  .b2{width:420px;height:420px;background:var(--blob2);top:28%;right:-160px;animation-duration:26s;animation-delay:-6s}
-  .b3{width:380px;height:380px;background:var(--blob3);bottom:-140px;left:12%;animation-duration:30s;animation-delay:-12s}
-  .bg::after{content:"";position:absolute;inset:0;
-    background-image:radial-gradient(rgba(178,58,102,.07) 1px, transparent 1px);background-size:22px 22px;
-    -webkit-mask-image:linear-gradient(to bottom, #000, transparent 70%);mask-image:linear-gradient(to bottom, #000, transparent 70%)}
-  @keyframes drift{0%{transform:translate(0,0) scale(1)}50%{transform:translate(40px,30px) scale(1.08)}100%{transform:translate(-30px,50px) scale(.95)}}
-
+  
   .wrap{max-width:680px;margin:0 auto;padding:48px 18px 88px}
 
-  /* 進場動畫 */
-  .rise{animation:rise .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i,0) * 90ms)}
-  @keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-
+  
   /* 開頭 */
   .hero{position:relative}
-  .spark{position:absolute;color:var(--rose);opacity:.85;animation:twinkle 3.2s ease-in-out infinite}
-  .spark.s1{width:26px;top:2px;right:4%}
-  .spark.s2{width:14px;top:44px;right:-1%;color:var(--lilac);animation-delay:-1.2s}
-  .spark.s3{width:12px;top:-10px;right:15%;color:var(--peach);animation-delay:-2.1s}
-  @keyframes twinkle{0%,100%{transform:scale(1) rotate(0);opacity:.85}50%{transform:scale(.6) rotate(25deg);opacity:.35}}
 
   .who{display:inline-flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
     color:var(--rose-ink);background:var(--glass-strong);border:1px solid var(--rule);
     border-radius:999px;padding:5px 16px 5px 5px;margin-bottom:26px;
-    box-shadow:0 6px 18px -8px var(--shadow);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
-  .who img{width:30px;height:30px;border-radius:9px;display:block;box-shadow:0 3px 8px -2px rgba(224,96,140,.5)}
+    }
+  .who img{width:30px;height:30px;border-radius:9px;display:block}
 
-  h1{font-family:"Noto Serif TC","Songti TC",serif;font-size:clamp(28px,6.2vw,38px);font-weight:900;
+  h1{font-family:inherit;font-size:clamp(28px,6.2vw,38px);font-weight:900;
     line-height:1.45;margin:0 0 20px;letter-spacing:.01em;color:var(--ink);text-wrap:balance}
   .hl{background:linear-gradient(transparent 60%, var(--mark) 60%, var(--mark) 92%, transparent 92%);
     padding:0 4px;white-space:nowrap;border-radius:4px}
@@ -82,15 +64,12 @@
   .doing{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0;padding:0;list-style:none}
   .doing li{background:var(--glass);border:1px solid var(--rule);border-radius:20px;padding:18px 16px 16px;
     font-size:16px;font-weight:500;line-height:1.55;color:var(--ink-2);text-wrap:pretty;
-    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
-    box-shadow:0 10px 26px -16px var(--shadow);transition:transform .25s, box-shadow .25s}
-  .doing li:hover{transform:translateY(-3px);box-shadow:0 16px 32px -14px var(--shadow)}
-  .ico{display:grid;place-items:center;width:46px;height:46px;border-radius:15px;margin-bottom:12px;color:var(--on-accent);
-    background:linear-gradient(135deg,var(--g1),var(--g2));box-shadow:0 8px 16px -8px var(--g1)}
+    }
+  .ico{display:grid;place-items:center;width:46px;height:46px;border-radius:15px;margin-bottom:12px;color:var(--g1);background:var(--gs)}
   .ico svg{width:24px;height:24px}
-  .doing li:nth-child(1){--g1:var(--rose);--g2:var(--rose-2)}
-  .doing li:nth-child(2){--g1:var(--lilac);--g2:var(--lilac-2)}
-  .doing li:nth-child(3){--g1:var(--peach);--g2:var(--peach-2)}
+  .doing li:nth-child(1){--g1:var(--rose);--gs:var(--rose-soft)}
+  .doing li:nth-child(2){--g1:var(--lilac);--gs:var(--lilac-soft)}
+  .doing li:nth-child(3){--g1:var(--peach);--gs:color-mix(in srgb, var(--peach) 14%, transparent)}
   @media (max-width:560px){ .doing{grid-template-columns:1fr;gap:10px}
     .doing li{display:flex;gap:14px;align-items:center;padding:14px 16px}
     .ico{margin:0;flex:0 0 auto;width:42px;height:42px;border-radius:13px} }
@@ -98,10 +77,9 @@
   /* 區塊 */
   .section{margin-top:68px}
   .section-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
-  .sec-ico{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;color:var(--on-accent);flex:0 0 auto;
-    background:linear-gradient(135deg,var(--c),var(--c2));box-shadow:0 8px 16px -8px var(--c)}
+  .sec-ico{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;color:var(--c);flex:0 0 auto;background:var(--c-soft)}
   .sec-ico svg{width:20px;height:20px}
-  h2{font-family:"Noto Serif TC","Songti TC",serif;font-size:25px;font-weight:900;margin:0;letter-spacing:.02em}
+  h2{font-family:inherit;font-size:25px;font-weight:900;margin:0;letter-spacing:.02em}
   .count{font-size:13px;font-weight:700;color:var(--c-ink);background:var(--c-soft);border-radius:999px;padding:2px 11px}
   .section-sub{color:var(--muted);font-size:16px;margin:0 0 20px 50px}
   @media (max-width:560px){ .section-sub{margin-left:0} }
@@ -112,34 +90,27 @@
   .card{position:relative;overflow:hidden;display:block;text-decoration:none;color:inherit;
     background:var(--glass);border:1px solid var(--rule);border-radius:24px;
     padding:22px 22px 20px 26px;margin-bottom:16px;
-    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
-    box-shadow:0 1px 2px rgba(120,40,70,.04),0 12px 30px -18px var(--shadow);
-    transition:transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s, border-color .3s}
+    box-shadow:0 1px 3px var(--shadow);transition:border-color .2s}
   .card::before{content:"";position:absolute;left:0;top:18px;bottom:18px;width:5px;border-radius:0 6px 6px 0;
-    background:linear-gradient(var(--c),var(--c2))}
-  .card::after{content:"";position:absolute;width:220px;height:220px;right:-90px;top:-110px;border-radius:50%;
-    background:radial-gradient(var(--c-soft), transparent 70%);opacity:.9;transition:transform .5s;pointer-events:none}
-  .card:hover,.card:focus-visible{transform:translateY(-4px);border-color:color-mix(in srgb, var(--c) 40%, transparent);
-    box-shadow:0 2px 4px rgba(120,40,70,.05),0 22px 40px -18px color-mix(in srgb, var(--c) 55%, transparent);outline:none}
-  .card:hover::after{transform:scale(1.25)}
+    background:var(--c)}
+  .card:hover,.card:focus-visible{border-color:var(--c);outline:none}
   .card:focus-visible{outline:3px solid var(--c);outline-offset:3px}
   .card > *{position:relative;z-index:1}
   .tags{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}
   .tag{font-size:13px;font-weight:700;color:var(--c-ink);background:var(--c-soft);border-radius:999px;padding:3px 12px}
-  .new{font-size:13px;font-weight:700;color:#fff;border-radius:999px;padding:3px 12px;
-    background:linear-gradient(135deg,#F2577F,#FF8A70);box-shadow:0 4px 12px -4px rgba(242,87,127,.6)}
+  .new{font-size:13px;font-weight:700;color:var(--on-accent);border-radius:999px;padding:3px 12px;background:var(--rose)}
   .card .t{font-size:21px;font-weight:700;line-height:1.45;margin-bottom:6px;color:var(--ink)}
   .card .d{font-size:17px;color:var(--ink-2);line-height:1.8;text-wrap:pretty}
   .card .d b{color:var(--ink);font-weight:700;background:linear-gradient(transparent 65%, var(--c-soft) 65%)}
   .go{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:15px;font-weight:700;
     color:var(--c-ink);background:var(--c-soft);border-radius:999px;padding:6px 16px;transition:background .3s,color .3s}
   .arr{display:inline-block;transition:transform .3s}
-  .card:hover .go,.card:focus-visible .go{background:linear-gradient(135deg,var(--c),var(--c2));color:var(--on-accent)}
+  .card:hover .go,.card:focus-visible .go{background:var(--c);color:var(--on-accent)}
   .card:hover .arr,.card:focus-visible .arr{transform:translateX(4px)}
 
   footer{position:relative;overflow:hidden;margin-top:72px;padding:26px 24px 24px;border-radius:24px;
-    background:linear-gradient(135deg,var(--rose-soft),var(--lilac-soft));border:1px solid var(--rule);
-    color:var(--ink-2);font-size:17px;box-shadow:0 12px 30px -18px var(--shadow)}
+    background:var(--glass);border:1px solid var(--rule);
+    color:var(--ink-2);font-size:17px}
   footer .heart{display:block;width:30px;height:30px;color:var(--rose);margin-bottom:8px}
   footer b{color:var(--ink)}
   footer a{color:var(--rose-ink);font-weight:700;text-decoration:none;
@@ -152,13 +123,9 @@
 </style>
 </head>
 <body>
-<div class="bg" aria-hidden="true"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
 <div class="wrap">
 
   <header class="hero">
-    <svg class="spark s1" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>
-    <svg class="spark s2" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>
-    <svg class="spark s3" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0c.8 6.4 5.6 11.2 12 12-6.4.8-11.2 5.6-12 12-.8-6.4-5.6-11.2-12-12C6.4 11.2 11.2 6.4 12 0z"/></svg>
 
     <div class="who rise" style="--i:0"><img src="./favicon.svg" alt="" width="30" height="30">Vivian｜一個用 AI 陪孩子學習的媽媽</div>
 
