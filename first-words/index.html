@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第一次跟 AI 說的 3 句話</title>
+<meta name="description" content="不知道第一句要說什麼？照抄就好。黃色的地方換成你家的。">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --blank:#FFF3C4; --blank-ink:#5A4300;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --blank:#4A3B10; --blank-ink:#FFE7A0; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-weight:400;font-size:18px;line-height:1.9;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:36px 16px 88px}
+  .back{display:inline-block;font-size:15px;color:var(--accent);text-decoration:none;margin-bottom:28px}
+
+  h1{font-size:30px;font-weight:700;line-height:1.35;margin:0 0 28px;letter-spacing:-.01em}
+  p{margin:0 0 14px}
+
+  .part{margin-top:56px}
+  .part-label{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
+    color:var(--accent);letter-spacing:.06em;margin-bottom:10px}
+  .part-label .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:var(--paper);font-size:15px;letter-spacing:0}
+  h2{font-size:24px;font-weight:700;line-height:1.4;margin:0 0 16px}
+
+  .story p{color:var(--ink-2)}
+  .big{font-size:21px;font-weight:700;color:var(--ink);line-height:1.6;margin:0 0 18px}
+
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+  .steps li{position:relative;padding-left:40px;margin-bottom:16px;color:var(--ink-2)}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:3px;
+    width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);
+    font-size:14px;font-weight:700;display:grid;place-items:center;line-height:1}
+  .steps b{color:var(--ink)}
+
+  /* NotebookLM 畫面示意 */
+  .nlm{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:6px;margin:18px 0 10px;
+    border:1px solid var(--rule);border-radius:12px;padding:6px;background:var(--surface)}
+  .nlm div{border-radius:8px;padding:12px 8px;text-align:center;font-size:14px;line-height:1.5;
+    background:var(--paper);color:var(--muted)}
+  .nlm div b{display:block;font-size:16px;color:var(--ink);margin-bottom:4px}
+  .nlm .mid{background:var(--accent-soft);color:var(--ink-2);outline:2px solid var(--accent)}
+  .nlm-cap{font-size:15px;color:var(--muted);margin:0 0 6px}
+
+  .subject{background:var(--surface);border:1px solid var(--rule);border-radius:16px;
+    padding:24px 20px;margin-top:22px}
+  .subject h3{font-size:23px;font-weight:700;margin:0 0 2px}
+  .where{font-size:15px;color:var(--muted);margin:0 0 16px}
+  .fit{font-size:17px;color:var(--ink-2);margin:0 0 14px}
+  .fit b{color:var(--ink)}
+  .or{font-size:15px;font-weight:700;color:var(--accent);margin:22px 0 8px}
+
+  .prompt{background:var(--accent-soft);border-radius:12px;padding:16px 16px 14px;margin:6px 0 0;
+    font-size:17px;line-height:1.85;color:var(--ink)}
+  .prompt .blank{background:var(--blank);color:var(--blank-ink);border-radius:4px;padding:1px 5px;font-weight:500}
+  .copy{display:block;width:100%;margin-top:12px;font:inherit;font-size:16px;font-weight:700;
+    color:var(--paper);background:var(--accent);border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+  .copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  .use{margin:18px 0 0;padding:0;list-style:none}
+  .use li{position:relative;padding-left:22px;margin-bottom:6px;color:var(--ink-2);font-size:17px}
+  .use li::before{content:"";position:absolute;left:4px;top:.75em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .use-title{font-size:15px;font-weight:700;color:var(--ink);margin:18px 0 6px}
+
+  .tip{border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;
+    padding:14px 16px;margin-top:22px;color:var(--ink-2)}
+  .tip b{color:var(--ink)}
+
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a class="back" href="../">← Vivian x AI 協作</a>
+
+  <h1>裝好之後，第一次跟 AI 說的 3 句話</h1>
+  <p>不知道第一句要說什麼？照抄就好。黃色的地方換成你家的。</p>
+
+  <section class="part story">
+    <div class="part-label"><span class="n">1</span>先記住一件事</div>
+    <p>這三句是給<b>媽媽／爸爸</b>用的，不是給孩子。</p>
+    <p>我們先自己用順了，知道它會不會亂講，再帶孩子一起。</p>
+  </section>
+
+  <section class="part">
+    <div class="part-label"><span class="n">2</span>三句話</div>
+
+    <div class="subject">
+      <h3>第 1 句｜先讓 AI 認識你的孩子</h3>
+      <p class="where">用在：ChatGPT 或 Gemini，第一次打開的時候。</p>
+      <p class="use-title">提示詞：</p>
+      <div class="prompt" id="p1">我是一位家長，孩子<span class="blank">小學三年級</span>，最近在學<span class="blank">分數</span>，他比較卡在<span class="blank">題目看不懂在問什麼</span>。接下來我會請你幫我陪他學習。請你不要直接給答案，用一步一步提示的方式，說話要讓這個年紀的孩子聽得懂。在開始之前，先問我三個問題，讓你更了解他。</div>
+      <button class="copy" data-for="p1">複製這段</button>
+      <p class="use-title">怎麼用：</p>
+      <ul class="use">
+        <li>它問的三個問題，照實回答就好，不用寫得很完整。</li>
+        <li>之後在同一個對話裡繼續問，它就會記得你家孩子的情況。</li>
+      </ul>
+    </div>
+
+    <div class="subject">
+      <h3>第 2 句｜拍考卷，看孩子錯在哪一種</h3>
+      <p class="where">用在：ChatGPT 或 Gemini，把考卷拍照傳上去。</p>
+      <p class="use-title">提示詞：</p>
+      <div class="prompt" id="p2">這是孩子的考卷，科目是<span class="blank">數學</span>，打叉的是錯題。請幫我把錯題分成四類：觀念沒懂、題目看錯、會但寫錯、時間不夠，每一類列出題號，再告訴我最該先補哪一類，每天十分鐘可以怎麼練。</div>
+      <button class="copy" data-for="p2">複製這段</button>
+      <p class="use-title">怎麼用：</p>
+      <ul class="use">
+        <li>訂正前拍最好，看得到孩子本來寫什麼。</li>
+        <li>先補最多的那一類就好，不用每一類都補。</li>
+      </ul>
+    </div>
+
+    <div class="subject">
+      <h3>第 3 句｜用課本出幾題遊戲小問題</h3>
+      <p class="where">用在：Gemini Notebook，先把課本那幾頁拍照放進去。</p>
+      <p class="use-title">提示詞：</p>
+      <div class="prompt" id="p3">孩子<span class="blank">小學一年級</span>，這週學了<span class="blank">第三課</span>。請只根據我放進去的課本，出 5 題用玩遊戲的方式問的小問題，我會念給他聽。每題附上答案，和一句為什麼。</div>
+      <button class="copy" data-for="p3">複製這段</button>
+      <p class="use-title">怎麼用：</p>
+      <ul class="use">
+        <li>你念、他猜，猜錯也沒關係。</li>
+        <li>一次 5 題就停，他還想玩，明天再來。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="part">
+    <div class="part-label"><span class="n">3</span>出來的東西不對怎麼辦？</div>
+    <ul class="use">
+      <li><b>直接跟它說哪裡不對</b>，例如「太難了，換簡單一點」「用課本的說法」，它會改。</li>
+      <li><b>給孩子之前，自己先看一遍。</b> AI 偶爾會講錯，隨手對一下課本就好。</li>
+    </ul>
+  </section>
+
+  <footer>
+    試了以後卡在哪裡，到 IG 或 Threads @vivienne.lu.ww 私訊我，我看看怎麼調。<br>— Vivian
+  </footer>
+
+</div>
+<script>
+  document.querySelectorAll('.copy').forEach(function(b){
+    b.addEventListener('click',function(){
+      var text=document.getElementById(b.dataset.for).textContent.trim();
+      var done=function(){b.textContent='已複製，去貼上吧';setTimeout(function(){b.textContent='複製這段'},1800)};
+      if(navigator.clipboard){navigator.clipboard.writeText(text).then(done,function(){fallback(text);done()})}
+      else{fallback(text);done()}
+    });
+  });
+  function fallback(t){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();
+    try{document.execCommand('copy')}catch(e){}a.remove()}
+</script>
+</body>
+</html>
