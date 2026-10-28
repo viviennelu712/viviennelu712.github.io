@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>用 Gemini Notebook 把自然觀念做成影片｜家長照著做</title>
+<meta name="description" content="週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://viviennelu712.github.io/science-video/">
+<meta property="og:title" content="用 Gemini Notebook 把自然觀念做成影片｜家長照著做">
+<meta property="og:description" content="週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解。">
+<meta property="og:image" content="https://viviennelu712.github.io/science-video/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="用 Gemini Notebook 把自然觀念做成影片，家長照著做，先從一頁課本開始。">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --blank:#FFF3C4; --blank-ink:#5A4300;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --blank:#4A3B10; --blank-ink:#FFE7A0; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-weight:400;font-size:18px;line-height:1.9;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:36px 16px 88px}
+  .back{display:inline-block;font-size:15px;color:var(--accent);text-decoration:none;margin-bottom:28px}
+
+  h1{font-size:30px;font-weight:700;line-height:1.35;margin:0 0 28px;letter-spacing:-.01em}
+  p{margin:0 0 14px}
+
+  .part{margin-top:56px}
+  .part-label{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
+    color:var(--accent);letter-spacing:.06em;margin-bottom:10px}
+  .part-label .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:var(--paper);font-size:15px;letter-spacing:0}
+  h2{font-size:24px;font-weight:700;line-height:1.4;margin:0 0 16px}
+
+  .story p{color:var(--ink-2)}
+  .big{font-size:21px;font-weight:700;color:var(--ink);line-height:1.6;margin:0 0 18px}
+
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+  .steps li{position:relative;padding-left:40px;margin-bottom:16px;color:var(--ink-2)}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:3px;
+    width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);
+    font-size:14px;font-weight:700;display:grid;place-items:center;line-height:1}
+  .steps b{color:var(--ink)}
+
+  /* NotebookLM 畫面示意 */
+  .nlm{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:6px;margin:18px 0 10px;
+    border:1px solid var(--rule);border-radius:12px;padding:6px;background:var(--surface)}
+  .nlm div{border-radius:8px;padding:12px 8px;text-align:center;font-size:14px;line-height:1.5;
+    background:var(--paper);color:var(--muted)}
+  .nlm div b{display:block;font-size:16px;color:var(--ink);margin-bottom:4px}
+  .nlm .mid{background:var(--accent-soft);color:var(--ink-2);outline:2px solid var(--accent)}
+  .nlm-cap{font-size:15px;color:var(--muted);margin:0 0 6px}
+
+  .subject{background:var(--surface);border:1px solid var(--rule);border-radius:16px;
+    padding:24px 20px;margin-top:22px}
+  .subject h3{font-size:23px;font-weight:700;margin:0 0 2px}
+  .where{font-size:15px;color:var(--muted);margin:0 0 16px}
+  .fit{font-size:17px;color:var(--ink-2);margin:0 0 14px}
+  .fit b{color:var(--ink)}
+  .or{font-size:15px;font-weight:700;color:var(--accent);margin:22px 0 8px}
+
+  .prompt{background:var(--accent-soft);border-radius:12px;padding:16px 16px 14px;margin:6px 0 0;
+    font-size:17px;line-height:1.85;color:var(--ink)}
+  .prompt .blank{background:var(--blank);color:var(--blank-ink);border-radius:4px;padding:1px 5px;font-weight:500}
+  .copy{display:block;width:100%;margin-top:12px;font:inherit;font-size:16px;font-weight:700;
+    color:var(--paper);background:var(--accent);border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+  .copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  .use{margin:18px 0 0;padding:0;list-style:none}
+  .use li{position:relative;padding-left:22px;margin-bottom:6px;color:var(--ink-2);font-size:17px}
+  .use li::before{content:"";position:absolute;left:4px;top:.75em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .use-title{font-size:15px;font-weight:700;color:var(--ink);margin:18px 0 6px}
+
+  .tip{border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;
+    padding:14px 16px;margin-top:22px;color:var(--ink-2)}
+  .tip b{color:var(--ink)}
+
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);color:var(--ink-2)}
+
+  a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}
+  a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  .steps .copy{margin-bottom:6px}
+</style>
+</head>
+
+<body>
+<main class="wrap">
+  <a class="back" href="../">← Vivian x AI 協作</a>
+  <h1>用 Gemini Notebook<br>把自然觀念做成影片<br>｜家長照著做</h1>
+  <p>週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解。</p>
+  <p>我們家會在週末自學時看，出去玩累了，回來看一段也剛剛好。你也可以先挑一頁試試。</p>
+
+  <section class="part" aria-labelledby="prepare-title">
+    <div class="part-label"><span class="n">1</span>先準備好</div>
+    <h2 id="prepare-title">Google 帳號＋一頁課本</h2>
+    <p>用家長的 Google 帳號，在電腦或手機瀏覽器打開 <a href="https://notebooklm.google.com/">notebooklm.google.com</a>。這是 Google 免費的 NotebookLM，我說的 Gemini Notebook 就是它。</p>
+    <p>你可以把它想成一本會幫忙整理資料的 AI 筆記本：你放課本進去，它就照著資料，幫你整理成影片或圖解。</p>
+  </section>
+
+  <section class="part" aria-labelledby="steps-title">
+    <div class="part-label"><span class="n">2</span>跟著做一次</div>
+    <h2 id="steps-title">先做一個觀念就好</h2>
+    <ol class="steps">
+      <li><b>把那一頁放進去。</b><br>開一個新筆記本，把課本那一頁拍清楚，加進「來源」；也可以直接複製一段課文，貼成文字來源。</li>
+      <li><b>找做影片的地方。</b><br>找「影片摘要／Video Overview」，或有「影片」字樣的按鈕，通常在「工作室／Studio」裡，先看看設定。</li>
+      <li><b>開始前，可以先說你想要什麼。</b><br>找可以填指示的地方，貼上下面這段，黃色的地方換成你家的，再開始生成。
+        <div class="prompt" id="video-prompt">請只根據我放進來的課本，為<span class="blank">小學五年級</span>的孩子，把<span class="blank">月亮的觀察</span>這個單元的一個重點做成幾分鐘的小影片。用繁體中文、孩子聽得懂的話，搭配一個生活例子，一次講清楚一個觀念就好。</div>
+        <button type="button" class="copy" data-for="video-prompt" aria-live="polite">複製這段</button>
+      </li>
+      <li><b>做好後，再一起看。</b><br>生成要等一會兒，可以先去忙別的；做好後先自己看過，再用手機或電腦和孩子一起看。</li>
+      <li><b>再做一張圖解。</b><br>找「資訊圖表／Infographic」，或有「圖表」字樣的按鈕，在可填指示的地方貼上這句，再生成：
+        <div class="prompt" id="image-prompt">請只根據我放進來的課本，把這個現象畫成一張圖，讓<span class="blank">小學五年級</span>的孩子看得懂。用繁體中文，標出重點，文字少一點。</div>
+        <button type="button" class="copy" data-for="image-prompt" aria-live="polite">複製這段</button>
+      </li>
+    </ol>
+    <p class="where">找不到某個按鈕也沒關係，手機和電腦的畫面可能不一樣，可以改用電腦瀏覽器找找看。</p>
+  </section>
+
+  <section class="part" aria-labelledby="question-title">
+    <div class="part-label"><span class="n">3</span>不知道從哪裡開始？</div>
+    <h2 id="question-title">「為什麼月亮會跟著我們走？」</h2>
+    <p>像散步時孩子抬頭問這句，就可以拿來當起點。先放進課本裡跟月亮有關的那一頁，再把這段貼進筆記本的對話框：</p>
+    <div class="prompt" id="question-prompt">孩子問：「為什麼月亮會跟著我們走？」請先看我放進來的資料，用<span class="blank">小學五年級</span>聽得懂的話說明，舉一個生活例子。如果資料沒有講到，請告訴我還缺什麼資料，不要猜。</div>
+    <button type="button" class="copy" data-for="question-prompt" aria-live="polite">複製這段</button>
+    <p class="use-title">先看它怎麼回答</p>
+    <p>如果那一頁不夠回答，就再找一段有說明這個問題的可靠資料放進去。說明對得上資料，再把這個問題填進上面的影片指示裡。</p>
+  </section>
+
+  <section class="part story" aria-labelledby="stop-title">
+    <div class="part-label"><span class="n">4</span>做不到也沒關係</div>
+    <h2 id="stop-title">不想看，就先停</h2>
+    <p>孩子看不完、不想看，就停在這裡，不用把整支看完。</p>
+    <p>下週再換一個他自己問的問題。先從他好奇的地方開始就好。</p>
+    <div class="tip"><b>給孩子之前，自己先看一遍。</b><br>AI 也會講錯，影片的說法、圖解的文字和箭頭，都對一下課本；不對的地方先改好，再給孩子看。</div>
+  </section>
+
+  <footer>
+    試了以後卡在哪裡，到 IG 或 Threads @vivienne.lu.ww 私訊我，我看看怎麼調。<br>— Vivian
+  </footer>
+</main>
+<script>
+  document.querySelectorAll('.copy').forEach(function(button){
+    button.addEventListener('click',async function(){
+      var text=document.getElementById(button.dataset.for).textContent.trim();
+      var copied=false;
+      try{
+        if(navigator.clipboard){await navigator.clipboard.writeText(text);copied=true;}
+      }catch(error){}
+      if(!copied){copied=fallback(text);}
+      clearTimeout(button.resetTimer);
+      button.textContent=copied?'已複製，去貼上吧':'沒複製成功，請長按上方文字複製';
+      button.resetTimer=setTimeout(function(){button.textContent='複製這段'},3500);
+    });
+  });
+  function fallback(text){
+    var field=document.createElement('textarea');
+    field.value=text;field.readOnly=true;
+    field.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';
+    document.body.appendChild(field);field.select();field.setSelectionRange(0,text.length);
+    var copied=false;
+    try{copied=document.execCommand('copy');}catch(error){}
+    field.remove();return copied;
+  }
+</script>
+</body>
+</html>
