@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>用 Gemini Notebook 把自然觀念做成影片｜家長照著做</title>
-<meta name="description" content="週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解。">
+<meta name="description" content="週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解，還可以順便做一份測驗。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://viviennelu712.github.io/science-video/">
 <meta property="og:title" content="用 Gemini Notebook 把自然觀念做成影片｜家長照著做">
-<meta property="og:description" content="週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解。">
+<meta property="og:description" content="週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解，還可以順便做一份測驗。">
 <meta property="og:image" content="https://viviennelu712.github.io/science-video/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -104,7 +104,7 @@
 <main class="wrap">
   <a class="back" href="../">← Vivian x AI 協作</a>
   <h1>用 Gemini Notebook<br>把自然觀念做成影片<br>｜家長照著做</h1>
-  <p>週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解。</p>
+  <p>週末在家，把孩子課本裡一個自然觀念，變成一支幾分鐘的小影片＋一張圖解，還可以順便做一份測驗。</p>
   <p>我們家會在週末自學時看，出去玩累了，回來看一段也剛剛好。你也可以先挑一頁試試。</p>
 
   <section class="part" aria-labelledby="prepare-title">
@@ -117,20 +117,43 @@
   <section class="part" aria-labelledby="steps-title">
     <div class="part-label"><span class="n">2</span>跟著做一次</div>
     <h2 id="steps-title">先做一個觀念就好</h2>
+    <div class="nlm" aria-hidden="true">
+      <div><b>左邊</b>來源<br>放資料</div>
+      <div class="mid"><b>中間</b>對話框<br>貼提示詞</div>
+      <div><b>右邊</b>工作室<br>成品在這裡</div>
+    </div>
+    <p class="nlm-cap">打開一個新筆記本，會看到這三塊。</p>
     <ol class="steps">
-      <li><b>把課本講這個觀念的那一頁放進去。</b><br>開一個新筆記本，把課本上講這個觀念的那一頁拍清楚，加進「來源」；也可以直接複製一段課文，貼成文字來源。</li>
-      <li><b>找做影片的地方。</b><br>找「影片摘要／Video Overview」，或有「影片」字樣的按鈕，通常在「工作室／Studio」裡，先看看設定。</li>
-      <li><b>開始前，可以先說你想要什麼。</b><br>找可以填指示的地方，貼上下面這段，黃色的地方換成你家的，再開始生成。
-        <div class="prompt" id="video-prompt">請只根據我放進來的課本，為<span class="blank">小學五年級</span>的孩子，把<span class="blank">月亮的觀察</span>這個單元的一個重點做成幾分鐘的小影片。用繁體中文、孩子聽得懂的話，搭配一個生活例子，一次講清楚一個觀念就好。</div>
-        <button type="button" class="copy" data-for="video-prompt" aria-live="polite">複製這段</button>
-      </li>
-      <li><b>做好後，再一起看。</b><br>生成要等一會兒，可以先去忙別的；做好後先自己看過，再用手機或電腦和孩子一起看。</li>
-      <li><b>再做一張圖解。</b><br>找「資訊圖表／Infographic」，或有「圖表」字樣的按鈕，在可填指示的地方貼上這句，再生成：
-        <div class="prompt" id="image-prompt">請只根據我放進來的課本，把這個現象畫成一張圖，讓<span class="blank">小學五年級</span>的孩子看得懂。用繁體中文，標出重點，文字少一點。</div>
-        <button type="button" class="copy" data-for="image-prompt" aria-live="polite">複製這段</button>
-      </li>
+      <li><b>把資料放進左邊的「來源」。</b><br>按「新增來源」，上傳課本這個單元的那幾頁（拍清楚的照片或 PDF）。要抓考前盲點，再加上孩子做過的考卷或複習卷。</li>
+      <li><b>從下面挑一組提示詞，貼進中間的對話框，送出。</b><br>黃色的地方換成你家的年級和單元。</li>
+      <li><b>等幾分鐘，影片會出現在右邊。</b><br>生成要等一會兒，可以先去忙別的。</li>
+      <li><b>再貼同一組的圖解那段，做一張圖解。</b></li>
+      <li><b>想要測驗，就跟它說「做一份測驗」。</b><br>孩子做錯了，它會告訴他正確答案和為什麼。</li>
     </ol>
-    <p class="where">找不到某個按鈕也沒關係，手機和電腦的畫面可能不一樣，可以改用電腦瀏覽器找找看。</p>
+    <p class="where">畫面上的按鈕名稱可能跟我的不一樣，也可以在右邊「工作室」找「影片摘要」「資訊圖表」，把提示詞貼在可以填指示的地方。手機找不到，就改用電腦瀏覽器。</p>
+
+    <div class="subject">
+      <h3>考前抓盲點</h3>
+      <p class="where">要放的資料：課本那個單元＋孩子做過的考卷或複習卷</p>
+      <p class="use-title">做影片</p>
+      <div class="prompt" id="blind-video">請根據我放進來的課本和考卷，找出<span class="blank">小學五年級</span>孩子在<span class="blank">動物世界</span>這個單元最容易搞錯的 3 個地方。每個地方照這個順序講：容易想錯的說法 → 課本上正確的說法 → 一個好記的生活例子 → 考試可能會怎麼問。用繁體中文、孩子聽得懂的話。只根據我放的資料，課本沒有的不要補。</div>
+      <button type="button" class="copy" data-for="blind-video" aria-live="polite">複製這段</button>
+      <p class="use-title">做圖解</p>
+      <div class="prompt" id="blind-image">請根據我放進來的課本和考卷，把<span class="blank">動物世界</span>最容易搞錯的 3 個地方畫成一張圖。每一個左邊寫「容易想錯的」，右邊寫「課本說的」。用繁體中文，字少一點、重點標出來，讓<span class="blank">小學五年級</span>孩子考前看一眼就記得。</div>
+      <button type="button" class="copy" data-for="blind-image" aria-live="polite">複製這段</button>
+    </div>
+
+    <div class="subject">
+      <h3>單元知識點</h3>
+      <p class="where">要放的資料：課本那個單元</p>
+      <p class="use-title">做影片</p>
+      <div class="prompt" id="unit-video">請只根據我放進來的課本，把<span class="blank">動物世界</span>這個單元的重點，做成一支給<span class="blank">小學五年級</span>孩子看的小影片。先用一句話說這個單元在學什麼，再一個一個講重點觀念，每個觀念配一個生活例子，最後用 3 句話幫孩子複習。用繁體中文、孩子聽得懂的話，課本沒講的不要補。</div>
+      <button type="button" class="copy" data-for="unit-video" aria-live="polite">複製這段</button>
+      <p class="use-title">做圖解</p>
+      <div class="prompt" id="unit-image">請只根據我放進來的課本，把<span class="blank">動物世界</span>這個單元的重點畫成一張整理圖，讓<span class="blank">小學五年級</span>孩子看一張就懂整個單元。用繁體中文，標出重點詞，字少一點，看得出觀念之間怎麼連在一起。</div>
+      <button type="button" class="copy" data-for="unit-image" aria-live="polite">複製這段</button>
+    </div>
+    <p class="where">「只根據我放的資料」這句一定要留著，不然 AI 會自己補課本沒教的東西。</p>
   </section>
 
   <section class="part" aria-labelledby="question-title">
