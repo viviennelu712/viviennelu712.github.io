@@ -1,17 +1,37 @@
 {
-  "name": "Vivian x AI 協作",
-  "short_name": "Vivian x AI",
-  "description": "沒有技術背景的媽媽，和 AI 協作，建立孩子的學習系統。免費工具與家長指南。",
+  "name": "Vivian｜用 AI 陪孩子學習",
+  "short_name": "Vivian",
+  "description": "沒有技術背景的媽媽，用 AI 陪孩子學習。家裡真的在用的方法和工具，都可以直接打開，不用註冊。",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#FFF6F4",
-  "theme_color": "#E0608C",
+  "background_color": "#F7F5F0",
+  "theme_color": "#1F4A52",
   "lang": "zh-Hant",
   "icons": [
-    { "src": "./favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
-    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
-    { "src": "./icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
