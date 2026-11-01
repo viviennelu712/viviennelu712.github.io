@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>孩子不會的題目，做成解題影片｜家長照著做</title>
+<meta name="description" content="考卷上不會的那一題，讓 AI 做成一支影片，帶孩子一步一步想。免費和付費兩種做法，都有提示詞可以複製。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://viviennelu712.github.io/math-video/">
+<meta property="og:title" content="孩子不會的題目，做成解題影片｜家長照著做">
+<meta property="og:description" content="考卷上不會的那一題，讓 AI 做成一支影片，帶孩子一步一步想。免費和付費兩種做法，都有提示詞可以複製。">
+<meta property="og:image" content="https://viviennelu712.github.io/math-video/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="孩子不會的題目，做成解題影片，家長照著做。">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --blank:#FFF3C4; --blank-ink:#5A4300;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --blank:#4A3B10; --blank-ink:#FFE7A0; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-weight:400;font-size:18px;line-height:1.9;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:36px 16px 88px}
+  .back{display:inline-block;font-size:15px;color:var(--accent);text-decoration:none;margin-bottom:28px}
+
+  h1{font-size:30px;font-weight:700;line-height:1.35;margin:0 0 28px;letter-spacing:-.01em}
+  p{margin:0 0 14px}
+
+  .part{margin-top:56px}
+  .part-label{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
+    color:var(--accent);letter-spacing:.06em;margin-bottom:10px}
+  .part-label .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:var(--paper);font-size:15px;letter-spacing:0}
+  h2{font-size:24px;font-weight:700;line-height:1.4;margin:0 0 16px}
+
+  .story p{color:var(--ink-2)}
+  .big{font-size:21px;font-weight:700;color:var(--ink);line-height:1.6;margin:0 0 18px}
+
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+  .steps li{position:relative;padding-left:40px;margin-bottom:16px;color:var(--ink-2)}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:3px;
+    width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);
+    font-size:14px;font-weight:700;display:grid;place-items:center;line-height:1}
+  .steps b{color:var(--ink)}
+
+  /* NotebookLM 畫面示意 */
+  .nlm{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:6px;margin:18px 0 10px;
+    border:1px solid var(--rule);border-radius:12px;padding:6px;background:var(--surface)}
+  .nlm div{border-radius:8px;padding:12px 8px;text-align:center;font-size:14px;line-height:1.5;
+    background:var(--paper);color:var(--muted)}
+  .nlm div b{display:block;font-size:16px;color:var(--ink);margin-bottom:4px}
+  .nlm .mid{background:var(--accent-soft);color:var(--ink-2);outline:2px solid var(--accent)}
+  .nlm-cap{font-size:15px;color:var(--muted);margin:0 0 6px}
+
+  .subject{background:var(--surface);border:1px solid var(--rule);border-radius:16px;
+    padding:24px 20px;margin-top:22px}
+  .subject h3{font-size:23px;font-weight:700;margin:0 0 2px}
+  .where{font-size:15px;color:var(--muted);margin:0 0 16px}
+  .fit{font-size:17px;color:var(--ink-2);margin:0 0 14px}
+  .fit b{color:var(--ink)}
+  .or{font-size:15px;font-weight:700;color:var(--accent);margin:22px 0 8px}
+
+  .prompt{background:var(--accent-soft);border-radius:12px;padding:16px 16px 14px;margin:6px 0 0;
+    font-size:17px;line-height:1.85;color:var(--ink)}
+  .prompt .blank{background:var(--blank);color:var(--blank-ink);border-radius:4px;padding:1px 5px;font-weight:500}
+  .copy{display:block;width:100%;margin-top:12px;font:inherit;font-size:16px;font-weight:700;
+    color:var(--paper);background:var(--accent);border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+  .copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  .use{margin:18px 0 0;padding:0;list-style:none}
+  .use li{position:relative;padding-left:22px;margin-bottom:6px;color:var(--ink-2);font-size:17px}
+  .use li::before{content:"";position:absolute;left:4px;top:.75em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .use-title{font-size:15px;font-weight:700;color:var(--ink);margin:18px 0 6px}
+
+  .tip{border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;
+    padding:14px 16px;margin-top:22px;color:var(--ink-2)}
+  .tip b{color:var(--ink)}
+
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);color:var(--ink-2)}
+
+  a{color:var(--accent);text-underline-offset:3px;overflow-wrap:anywhere}
+  a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+  .steps .copy{margin-bottom:6px}
+</style>
+</head>
+
+<body>
+<main class="wrap">
+  <a class="back" href="../">← 回 Vivian 首頁</a>
+  <h1>孩子不會的題目<br>做成解題影片<br>｜家長照著做</h1>
+  <p>挑戰題不會，聽老師講一次，回頭自己寫可能又忘了。可以讓 AI 把這一題做成影片，帶孩子一步一步想。</p>
+  <p><a href="https://youtube.com/shorts/EP-exexS9rM">先看一支影片，了解這個做法 →</a></p>
+
+  <section class="part" aria-labelledby="pick-title">
+    <div class="part-label"><span class="n">1</span>先選一種</div>
+    <h2 id="pick-title">今晚想懂這一題，還是要老師帶著想？</h2>
+    <div class="subject">
+      <h3>簡易版｜免費</h3>
+      <p class="where">用 Gemini Notebook（Google 免費的 NotebookLM）</p>
+      <p class="fit"><b>適合：</b>今晚想讓孩子先懂這一題。幾分鐘做好，講得比較概要，影片不會真的停下來等孩子。</p>
+    </div>
+    <div class="subject">
+      <h3>完整版｜要付費</h3>
+      <p class="where">用編程工具：Codex、Claude Code、Antigravity 都可以</p>
+      <p class="fit"><b>適合：</b>孩子常卡在同一類題目，要有老師帶著想：中間提問、停下來等他、畫面跟著一步步出現。</p>
+      <p class="fit">這種影片要跑很多步，免費額度通常不夠，建議先升級付費方案（費用看各家頁面）。還沒裝工具，先看 <a href="../ai-setup/">AI 工具下載手冊</a>。</p>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="ready-title">
+    <div class="part-label"><span class="n">2</span>兩種都要先準備</div>
+    <h2 id="ready-title">題目照片＋正確答案</h2>
+    <ol class="steps">
+      <li><b>把那一題拍清楚。</b><br>題目要拍完整。照片裡有孩子的名字、學校，先裁掉。</li>
+      <li><b>找到正確答案。</b><br>解答、老師訂正過的都可以。先告訴 AI 答案，它才不會帶著孩子算錯。</li>
+    </ol>
+  </section>
+
+  <section class="part" aria-labelledby="easy-title">
+    <div class="part-label"><span class="n">3</span>簡易版</div>
+    <h2 id="easy-title">用 Gemini Notebook 做</h2>
+    <ol class="steps">
+      <li>用家長的 Google 帳號打開 <a href="https://notebooklm.google.com/">notebooklm.google.com</a>，建立一個新筆記本。</li>
+      <li>按「新增來源」，上傳題目照片。</li>
+      <li>在右邊「工作室」找「影片摘要」，把下面這段貼在可以填指示的地方。黃色的地方換成你家的。</li>
+      <li>等幾分鐘，影片會出現在右邊。</li>
+    </ol>
+    <div class="prompt" id="easy">請只根據我放進來的題目照片，做一支給<span class="blank">小學五年級</span>孩子看的解題影片，講<span class="blank">第 6 題</span>。這題的正確答案是<span class="blank">365</span>，請照這個答案講。先用一句話說這題在問什麼，再一步一步講怎麼想。講到最關鍵的地方，先問孩子一個問題，停一下再說答案。最後提醒孩子：把影片關掉，拿白紙自己寫一遍。用繁體中文、台灣用語，口氣像一位溫柔的老師。</div>
+    <button type="button" class="copy" data-for="easy" aria-live="polite">複製這段</button>
+    <p class="where">畫面上的按鈕名稱可能跟這裡不一樣。手機找不到，就改用電腦瀏覽器。</p>
+  </section>
+
+  <section class="part" aria-labelledby="full-title">
+    <div class="part-label"><span class="n">4</span>完整版</div>
+    <h2 id="full-title">用編程工具做</h2>
+    <ol class="steps">
+      <li>打開工具，開一個新資料夾，把題目照片放進去。</li>
+      <li>把下面這段貼進對話框，黃色的地方換成你家的。</li>
+      <li>它會先把題目列給你對，對了再讓它做。中間跳出來問要不要允許，看懂了再按。</li>
+      <li>做好先看一遍，哪裡不對、聲音不喜歡，直接跟它說要改哪裡。</li>
+    </ol>
+    <div class="prompt" id="full">請把這個資料夾裡題目照片的<span class="blank">第 6 題</span>，做成一支給<span class="blank">小學五年級</span>孩子看的解題影片，存在這個資料夾。正確答案是<span class="blank">365</span>，孩子卡在<span class="blank">不知道要先算哪一步</span>。
+<br><br>開始前：先把你讀到的題目文字和算式列給我確認。我說對了才開始做。
+<br><br>帶法：不要從頭唸到尾。先拿孩子會的部分對照，再拆卡住的地方。只在真正會卡住的地方問問題，問完留 2 秒以上讓他想，畫面放倒數條，再接著說。
+<br><br>旁白：一位台灣女老師，單人。先用 edge-tts 的 zh-TW-HsiaoChenNeural。句子拆短，一句一句生成再接起來，句子之間停 0.4 到 0.5 秒，講得口語一點。
+<br><br>畫面：直式影片。算式和圖形跟著旁白一步一步出現，用不同顏色標重點，下方放大字字幕（繁體中文）。
+<br><br>結尾：「把影片關掉，拿白紙不看答案，自己動筆寫一遍。」
+<br><br>影片裡不要出現孩子的名字和學校。</div>
+    <button type="button" class="copy" data-for="full" aria-live="polite">複製這段</button>
+    <p class="where">這樣做出來的影片，給自己孩子看就好，不要公開上傳。</p>
+  </section>
+
+  <section class="part story" aria-labelledby="after-title">
+    <div class="part-label"><span class="n">5</span>做好之後</div>
+    <h2 id="after-title">看完，關掉，自己寫一遍</h2>
+    <p>看懂和會寫是兩回事。孩子看完把影片關掉，拿白紙自己寫一次，寫得出來才算這題過了。</p>
+    <p>孩子不想看，就先停，改天再試。</p>
+    <div class="tip"><b>給孩子之前，自己先看一遍。</b><br>AI 會看錯手寫，也會算錯。題目、算式、答案都對過原卷，不對的先改好，再給孩子看。</div>
+  </section>
+
+  <footer>
+    試了以後卡在哪裡，到 IG 或 Threads @vivienne.lu.ww 私訊我，我看看怎麼調。<br>— Vivian
+  </footer>
+</main>
+<script>
+  document.querySelectorAll('.copy').forEach(function(button){
+    button.addEventListener('click',async function(){
+      var text=document.getElementById(button.dataset.for).textContent.trim();
+      var copied=false;
+      try{
+        if(navigator.clipboard){await navigator.clipboard.writeText(text);copied=true;}
+      }catch(error){}
+      if(!copied){copied=fallback(text);}
+      clearTimeout(button.resetTimer);
+      button.textContent=copied?'已複製，去貼上吧':'沒複製成功，請長按上方文字複製';
+      button.resetTimer=setTimeout(function(){button.textContent='複製這段'},3500);
+    });
+  });
+  function fallback(text){
+    var field=document.createElement('textarea');
+    field.value=text;field.readOnly=true;
+    field.style.cssText='position:fixed;top:0;left:0;opacity:0;font-size:16px';
+    document.body.appendChild(field);field.select();field.setSelectionRange(0,text.length);
+    var copied=false;
+    try{copied=document.execCommand('copy');}catch(error){}
+    field.remove();return copied;
+  }
+</script>
+</body>
+</html>
