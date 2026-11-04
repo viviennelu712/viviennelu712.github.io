@@ -62,6 +62,34 @@
   .arr{display:inline-block;transition:transform .2s}
   .card:hover .arr{transform:translateX(4px)}
 
+
+  /* 一起做（意向登記） */
+  .jump{display:inline-block;margin-top:18px;font-size:16px;font-weight:700;color:var(--accent);text-decoration:none}
+  .jump:hover{text-decoration:underline}
+  .join{padding:36px 32px;background:var(--card);border:1px solid var(--rule);border-radius:20px;margin-bottom:60px}
+  .join h2{margin-bottom:4px}
+  .join-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:36px;margin-top:8px}
+  .steps{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+  .steps li{display:flex;gap:12px;color:var(--ink-2)}
+  .steps b{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:var(--accent);color:var(--card);
+    font-size:15px;line-height:28px;text-align:center;margin-top:3px}
+  .note{margin:20px 0 0;padding-top:16px;border-top:1px dashed var(--rule);color:var(--ink)}
+  form{display:flex;flex-direction:column;gap:14px}
+  .form-title{margin:0;font-family:var(--serif);font-weight:600;font-size:20px}
+  .form-sub{margin:-8px 0 4px;color:var(--muted);font-size:15px}
+  label{display:flex;flex-direction:column;gap:6px;font-size:15px;font-weight:500}
+  input,select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--rule);
+    border-radius:10px;padding:10px 12px;width:100%}
+  textarea{min-height:84px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+  .send{margin-top:4px;font:inherit;font-size:17px;font-weight:700;color:var(--card);background:var(--accent);border:0;
+    border-radius:12px;padding:12px 18px;cursor:pointer}
+  [hidden]{display:none !important}
+  .thanks{align-self:center;color:var(--ink-2)}
+  .thanks p{margin:0 0 8px}
+  .privacy{margin:0;font-size:14px;color:var(--muted)}
+  @media (max-width:560px){ .join{padding:26px 20px} }
+
   footer{padding-top:28px;border-top:1px solid var(--rule);color:var(--ink-2)}
   footer p{margin:0}
   footer a{color:var(--accent);font-weight:700}
@@ -85,6 +113,7 @@
       <p class="who">Vivian｜一個用 AI 陪孩子學習的媽媽</p>
       <h1>沒有技術背景的媽媽，<br>和 AI 一起，<span class="nw">把孩子的學習</span><span class="nw">理出一套系統</span></h1>
       <p class="lede">這裡放我實際做出來、家裡真的在用的東西。都可以直接打開，不用註冊。</p>
+      <a class="jump" href="#join">想跟我一起，把這套做進你家 ↓</a>
     </div>
     <div class="photo"><img src="./portrait.jpg" alt="Vivian 在家裡書櫃前的照片" width="640" height="640"></div>
   </header>
@@ -160,6 +189,42 @@
       </a>
     </div>
   </section>
+
+  <section class="join" id="join">
+    <h2>想跟我一起，把這套做進你家</h2>
+    <p class="sub">我在陪身邊的媽媽，一起把 AI 用進每天的生活和孩子的學習裡。</p>
+    <div class="join-grid">
+      <div>
+        <ul class="steps">
+          <li><b>1</b><span>先把工具裝好。我陪你一起裝，不用自己摸。</span></li>
+          <li><b>2</b><span>媽媽先用自己手邊的事練，先學會跟 AI 一起做事。</span></li>
+          <li><b>3</b><span>再用到孩子的學習上：規劃、每天的作業、錯題、英文口說。</span></li>
+          <li><b>4</b><span>帶你家真的卡住的一件事來，當場做出第一版，回家接著用。</span></li>
+        </ul>
+        <p class="note">媽媽先會，再教孩子。<br>不用懂技術，但要願意回家真的去用、卡住了就來問我。</p>
+      </div>
+      <form id="join-form" action="https://docs.google.com/forms/d/e/1FAIpQLSfdzFmlDDN9oFYdYyEQEvwoWeKDcseDEnGnZbMCOn2z1PBENw/formResponse" method="POST" target="join-sink">
+        <p class="form-title">先登記，下一期開始前我會聯絡你</p>
+        <p class="form-sub">時間和方式定了，會先通知登記的人。登記不用付費，也不代表一定要報名。</p>
+        <label>怎麼稱呼你<input name="entry.593853041" autocomplete="name" required></label>
+        <label>孩子幾年級
+          <select name="entry.1335480114" required>
+            <option value="">請選擇</option>
+            <option>幼兒園</option><option>國小低年級</option><option>國小中年級</option><option>國小高年級</option><option>國中</option><option>高中</option><option>還沒有孩子／其他</option>
+          </select>
+        </label>
+        <label>現在最想解決的一件事<textarea name="entry.1072527500" placeholder="例如：孩子錯題一直重複錯、不知道怎麼排考前複習、自己完全沒用過 AI" required></textarea></label>
+        <label>怎麼聯絡你（LINE ID 或 Email）<input name="entry.175894662" required></label>
+        <button class="send" type="submit">送出登記</button>
+        <p class="privacy">只有我看得到，不會公開，也不會拿去做別的事。</p>
+      </form>
+      <div class="thanks" id="join-thanks" hidden>
+        <p class="form-title">收到了，謝謝你。</p>
+        <p>下一期的時間和方式定了，我會先聯絡你。這段時間，上面的做法和工具都可以先拿去用。</p>
+      </div>
+      <iframe name="join-sink" title="登記送出" hidden></iframe>
+    </div>
+  </section>
   </main>
 
   <footer>
@@ -167,5 +232,12 @@
   </footer>
 
 </div>
+<script>
+  // 登記表單：送到 Google 表單（資料只進 Vivian 的帳號），送出後換成感謝訊息
+  document.getElementById("join-form").addEventListener("submit", function () {
+    var form = this;
+    setTimeout(function () { form.hidden = true; document.getElementById("join-thanks").hidden = false; }, 600);
+  });
+</script>
 </body>
 </html>
