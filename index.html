@@ -64,8 +64,9 @@
 
 
   /* 一起做（意向登記） */
-  .jump{display:inline-block;margin-top:18px;font-size:16px;font-weight:700;color:var(--accent);text-decoration:none}
-  .jump:hover{text-decoration:underline}
+  .jump{display:inline-block;margin-top:22px;padding:14px 26px;border-radius:999px;background:var(--accent);color:#fff;font-size:18px;font-weight:700;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+  .jump:hover{filter:brightness(.92)}
+  @media (prefers-color-scheme:dark){.jump{color:#111}}
   .join{padding:36px 32px;background:var(--card);border:1px solid var(--rule);border-radius:20px;margin-bottom:60px}
   .join h2{margin-bottom:4px}
   .join-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,340px),1fr));gap:36px;margin-top:8px}
