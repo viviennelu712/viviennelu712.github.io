@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>家長用的 AI 指令卡｜讓它不要一本正經說瞎話</title>
+<meta name="description" content="先把智力調到最高，再用一句話指令讓它照你要的做。工作、日常、陪孩子學習都用得上。點一下就複製。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://viviennelu712.github.io/ai-check/">
+<meta property="og:title" content="家長用的 AI 指令卡｜讓它不要一本正經說瞎話">
+<meta property="og:description" content="先把智力調到最高，再用一句話指令讓它照你要的做。工作、日常、陪孩子學習都用得上。點一下就複製。">
+<meta property="og:image" content="https://viviennelu712.github.io/ai-check/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --blank:#FFF3C4; --blank-ink:#5A4300;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --blank:#4A3B10; --blank-ink:#FFE7A0; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-weight:400;font-size:18px;line-height:1.9;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:620px;margin:0 auto;padding:36px 16px 88px}
+  .back{display:inline-block;font-size:15px;color:var(--accent);text-decoration:none;margin-bottom:28px}
+
+  h1{font-size:30px;font-weight:700;line-height:1.35;margin:0 0 28px;letter-spacing:-.01em}
+  p{margin:0 0 14px}
+
+  .part{margin-top:56px}
+  .part-label{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;
+    color:var(--accent);letter-spacing:.06em;margin-bottom:10px}
+  .part-label .n{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;
+    background:var(--accent);color:var(--paper);font-size:15px;letter-spacing:0}
+  h2{font-size:24px;font-weight:700;line-height:1.4;margin:0 0 16px}
+
+  .story p{color:var(--ink-2)}
+  .big{font-size:21px;font-weight:700;color:var(--ink);line-height:1.6;margin:0 0 18px}
+
+  .steps{list-style:none;margin:0;padding:0;counter-reset:s}
+  .steps li{position:relative;padding-left:40px;margin-bottom:16px;color:var(--ink-2)}
+  .steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:3px;
+    width:26px;height:26px;border-radius:50%;border:2px solid var(--accent);color:var(--accent);
+    font-size:14px;font-weight:700;display:grid;place-items:center;line-height:1}
+  .steps b{color:var(--ink)}
+
+  /* NotebookLM 畫面示意 */
+  .nlm{display:grid;grid-template-columns:1fr 1.5fr 1fr;gap:6px;margin:18px 0 10px;
+    border:1px solid var(--rule);border-radius:12px;padding:6px;background:var(--surface)}
+  .nlm div{border-radius:8px;padding:12px 8px;text-align:center;font-size:14px;line-height:1.5;
+    background:var(--paper);color:var(--muted)}
+  .nlm div b{display:block;font-size:16px;color:var(--ink);margin-bottom:4px}
+  .nlm .mid{background:var(--accent-soft);color:var(--ink-2);outline:2px solid var(--accent)}
+  .nlm-cap{font-size:15px;color:var(--muted);margin:0 0 6px}
+
+  .subject{background:var(--surface);border:1px solid var(--rule);border-radius:16px;
+    padding:24px 20px;margin-top:22px}
+  .subject h3{font-size:23px;font-weight:700;margin:0 0 2px}
+  .where{font-size:15px;color:var(--muted);margin:0 0 16px}
+  .fit{font-size:17px;color:var(--ink-2);margin:0 0 14px}
+  .fit b{color:var(--ink)}
+  .or{font-size:15px;font-weight:700;color:var(--accent);margin:22px 0 8px}
+
+  .prompt{background:var(--accent-soft);border-radius:12px;padding:16px 16px 14px;margin:6px 0 0;
+    font-size:17px;line-height:1.85;color:var(--ink)}
+  .prompt .blank{background:var(--blank);color:var(--blank-ink);border-radius:4px;padding:1px 5px;font-weight:500}
+  .copy{display:block;width:100%;margin-top:12px;font:inherit;font-size:16px;font-weight:700;
+    color:var(--paper);background:var(--accent);border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+  .copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+
+  .use{margin:18px 0 0;padding:0;list-style:none}
+  .use li{position:relative;padding-left:22px;margin-bottom:6px;color:var(--ink-2);font-size:17px}
+  .use li::before{content:"";position:absolute;left:4px;top:.75em;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+  .use-title{font-size:15px;font-weight:700;color:var(--ink);margin:18px 0 6px}
+
+  .tip{border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;
+    padding:14px 16px;margin-top:22px;color:var(--ink-2)}
+  .tip b{color:var(--ink)}
+
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--rule);color:var(--ink-2)}
+
+  .wrap{max-width:720px}
+  .meter{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:14px 0 8px}
+  .meter div{border-radius:10px;padding:10px 6px;text-align:center;font-size:14px;line-height:1.4;background:var(--surface);border:1px solid var(--rule);color:var(--muted)}
+  .meter div b{display:block;font-size:18px;color:var(--ink)}
+  .meter .on{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+  .meter .on b{color:var(--paper)}
+  .grp{margin-top:34px}
+  .grp h2{font-size:19px;margin:0 0 8px;display:flex;align-items:center;gap:8px}
+  .grp h2 small{font-size:13px;font-weight:400;color:var(--muted)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  @media (max-width:560px){.grid{grid-template-columns:1fr}}
+  .row{display:grid;grid-template-columns:118px 1fr;align-items:center;gap:10px;text-align:left;font:inherit;
+    background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:10px 12px;cursor:pointer;color:var(--ink)}
+  .row:hover{border-color:var(--accent)}
+  .row:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+  .row .c{font-weight:700;font-size:17px;color:var(--accent);white-space:nowrap}
+  .row .d{font-size:15px;line-height:1.5;color:var(--ink-2)}
+  .core .row{background:var(--accent-soft);border-color:var(--accent)}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:var(--paper);
+    padding:8px 16px;border-radius:999px;font-size:15px;opacity:0;transition:opacity .2s;pointer-events:none}
+  .toast.on{opacity:1}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../">← 回 Vivian 首頁</a>
+  <h1>家長用的 AI 指令卡</h1>
+  <p>我們用的 AI 都是同一個，差在有沒有把它的智力開到最高，和有沒有說清楚「怎樣才算對」。<b>點任何一張，就複製那句話</b>，＿＿換成你的。</p>
+
+  <section class="grp">
+    <h2>先做這件：智力調到最高</h2>
+    <div class="meter"><div><b>低</b>快、隨口答</div><div><b>中</b>一般</div><div class="on"><b>高</b>想比較久、少出錯</div></div>
+    <p class="nlm-cap">對話框旁邊的模型選單，挑寫著「思考」「Pro」或最強的那個。就算是簡單的問題也一樣。</p>
+  </section>
+
+<section class="grp core"><h2>讓它少說錯<small>最重要的四張</small></h2><div class="grid"><button class="row" data-copy="請一步一步想清楚再回答。不確定的地方直接說「我不確定」，不要自己補。"><span class="c">/想清楚</span><span class="d">不管多簡單，都一步一步想過再答</span></button><button class="row" data-copy="你剛剛＿＿說錯了，因為＿＿。請改正後重寫，並告訴我你改了哪裡。"><span class="c">/你錯了</span><span class="d">指出哪裡錯、為什麼，叫它改</span></button><button class="row" data-copy="下面是我覺得好的範本，請照它的嚴謹度和格式來做，範本裡沒有根據的不要加：＿＿"><span class="c">/照範本</span><span class="d">給它一份好的，照那個標準做</span></button><button class="row" data-copy="請只根據我給的來源檢查這份回答：哪句有來源支持、哪句找不到、哪句跟來源矛盾。來源：＿＿（課本照片／網址／原文）"><span class="c">/對來源</span><span class="d">附上來源，請另一個 AI 檢查</span></button></div></section>
+<section class="grp"><h2>工作<small></small></h2><div class="grid"><button class="row" data-copy="幫我把下面這份只留重點和結論，最多五點：＿＿"><span class="c">/摘重點</span><span class="d">長文、會議紀錄只留重點和結論</span></button><button class="row" data-copy="幫我寫一封信給＿＿，目的是＿＿，語氣＿＿，不要超過一百五十字。"><span class="c">/寫信</span><span class="d">目的清楚、語氣得體的一封信</span></button><button class="row" data-copy="請你挑我這個想法的毛病：哪裡行不通、我沒想到什麼。不要先誇我。＿＿"><span class="c">/挑毛病</span><span class="d">找出弱點和行不通的地方</span></button><button class="row" data-copy="幫我比較＿＿和＿＿，用表格列出：費用、時間、優點、缺點，最後說你會選哪個、為什麼。"><span class="c">/比一比</span><span class="d">用清楚的標準比較幾個選項</span></button></div></section>
+<section class="grp"><h2>日常<small></small></h2><div class="grid"><button class="row" data-copy="請用一般人聽得懂的話解釋，不要用術語：＿＿"><span class="c">/講白話</span><span class="d">去掉術語，用一般人聽得懂的話</span></button><button class="row" data-copy="把這件事整理成可以照著做的清單，一步一行：＿＿"><span class="c">/列清單</span><span class="d">整理成可以照著做的步驟</span></button><button class="row" data-copy="我這週要做這些事＿＿，能用的時間是＿＿，幫我排進去，留一點空檔。"><span class="c">/排行程</span><span class="d">把要做的事排進時間</span></button><button class="row" data-copy="把下面的內容整理成一張表格：＿＿"><span class="c">/做表格</span><span class="d">整理成一張比較表</span></button></div></section>
+<section class="grp"><h2>陪孩子學習<small>大人先用過，再給孩子</small></h2><div class="grid"><button class="row" data-copy="這是孩子的考卷，打叉的是錯題。請分成：觀念沒懂、題目看錯、會但寫錯，各列題號，再說最該先補哪一類。"><span class="c">/錯在哪</span><span class="d">考卷錯題分類，找出最該先補的</span></button><button class="row" data-copy="孩子＿＿年級，這週學＿＿。請只根據我給的課本出 5 題，附答案和一句為什麼。"><span class="c">/出題</span><span class="d">照課本出幾題，一次不要太多</span></button><button class="row" data-copy="請用＿＿年級孩子聽得懂的例子，解釋＿＿，三句以內。"><span class="c">/講給孩子聽</span><span class="d">用孩子聽得懂的例子講清楚</span></button><button class="row" data-copy="我是＿＿年級的學生，這題我不會：＿＿。先不要告訴我答案，問我一個問題讓我自己想下一步。"><span class="c">/先別給答案</span><span class="d">孩子用：引導他自己想，不直接講</span></button></div></section>
+
+  <section class="grp">
+    <div class="tip"><b>斜線只是方便記。</b>AI 看的是你打的那句話，所以整句貼進去最準。重要的事，給孩子或交出去之前，自己對一下來源。</div>
+  </section>
+
+  <footer>
+    試了以後卡在哪裡，到 IG 或 Threads @vivienne.lu.ww 私訊我，我們可以一起看。<br>— Vivian
+  </footer>
+</div>
+<div class="toast" id="toast">已複製，去貼上吧</div>
+<script>
+  var t=document.getElementById('toast');
+  function show(){t.classList.add('on');setTimeout(function(){t.classList.remove('on')},1600)}
+  function fb(s){var a=document.createElement('textarea');a.value=s;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(e){}a.remove()}
+  document.querySelectorAll('.row').forEach(function(b){b.addEventListener('click',function(){
+    var s=b.dataset.copy; if(navigator.clipboard){navigator.clipboard.writeText(s).then(show,function(){fb(s);show()})}else{fb(s);show()}
+  })});
+</script>
+<!-- 陪跑入口（每個單頁都有） -->
+<style>
+.vjoin{max-width:760px;margin:40px auto 32px;padding:24px 22px;border-radius:18px;border:2px solid var(--accent,#7A4A1E);background:var(--accent-soft,#F1E6D6);color:var(--ink,#16130E);font-family:inherit;box-sizing:border-box;width:calc(100% - 32px)}
+.vjoin h2{margin:0 0 8px;font-size:22px;line-height:1.35}
+.vjoin p{margin:0 0 16px;font-size:16px;line-height:1.7;color:var(--ink-2,#2E2922)}
+.vjoin a{display:inline-block;padding:13px 24px;border-radius:999px;background:var(--accent,#7A4A1E);color:#fff;font-size:17px;font-weight:700;text-decoration:none}
+.vjoin a:hover{filter:brightness(.92)}
+@media (prefers-color-scheme:dark){.vjoin a{color:#111}}
+@media print{.vjoin{display:none}}
+</style>
+<section class="vjoin" aria-label="陪跑">
+  <h2>想跟我一起，把這套做進你家？</h2>
+  <p>這一頁是其中一件。我在陪身邊的媽媽，從裝好工具開始，一起把 AI 用進每天的生活和孩子的學習。媽媽先會，再教孩子。</p>
+  <a href="https://viviennelu712.github.io/#join">看陪跑怎麼進行、先登記 →</a>
+</section>
+</body>
+</html>
