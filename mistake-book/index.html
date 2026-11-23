@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>每週讓 GPT 自動整理錯題本</title>
+<meta name="description" content="我每週是讓 ChatGPT 自動跑這段，你可以直接複製去改 👇">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://viviennelu712.github.io/mistake-book/">
+<meta property="og:title" content="每週讓 GPT 自動整理錯題本">
+<meta property="og:description" content="我每週是讓 ChatGPT 自動跑這段，你可以直接複製去改 👇">
+<meta property="og:image" content="https://viviennelu712.github.io/mistake-book/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="每週讓 GPT 自動整理錯題本">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --blank:#FFF3C4; --blank-ink:#5A4300;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --blank:#4A3B10; --blank-ink:#FFE7A0;
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-size:18px;line-height:1.9;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:620px;margin:0 auto;padding:36px 16px 0}
+  .back{display:inline-block;font-size:15px;color:var(--accent);text-decoration:none;margin-bottom:28px}
+  h1{font-size:30px;line-height:1.35;margin:0 0 28px;letter-spacing:-.01em;text-wrap:balance}
+  p{margin:0 0 14px;color:var(--ink-2)}
+  .lead{font-size:21px;font-weight:700;line-height:1.6;color:var(--ink);margin-bottom:18px}
+  .steps{list-style:none;margin:24px 0 0;padding:0}
+  .steps li{position:relative;padding-left:40px;margin-bottom:16px;color:var(--ink-2)}
+  .steps strong{color:var(--ink)}
+  .step-number{
+    position:absolute;left:0;top:3px;width:28px;height:28px;display:grid;place-items:center;
+    border:1px solid var(--accent);border-radius:50%;color:var(--accent);font-weight:700;font-size:14px;line-height:1;
+  }
+  .copy-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin-top:12px}
+  .copy{
+    min-height:44px;border:0;border-radius:10px;padding:8px 16px;cursor:pointer;
+    font:inherit;font-size:16px;font-weight:700;color:var(--paper);background:var(--accent);
+  }
+  .copy:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+  .copy-status{font-size:15px;color:var(--muted)}
+  .closing{
+    border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;
+    padding:14px 16px;margin:28px 0 0;
+  }
+  .vjoin{
+    max-width:760px;width:calc(100% - 32px);margin:40px auto 32px;padding:24px 22px;
+    border-radius:18px;border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink);
+  }
+  .vjoin h2{margin:0 0 8px;font-size:22px;line-height:1.35}
+  .vjoin p{margin:0 0 16px;font-size:16px;line-height:1.7}
+  .vjoin a{
+    display:inline-block;padding:13px 24px;border-radius:999px;background:var(--accent);
+    color:var(--paper);font-size:17px;font-weight:700;text-decoration:none;
+  }
+  .vjoin a:hover{filter:brightness(.92)}
+  @media print{
+    .vjoin,.back,.copy-row{display:none}
+  }
+  .prep{margin-top:28px}
+  .prep h2{font-size:22px;line-height:1.4;margin:0 0 12px}
+  .prep .steps{margin-top:0}
+  .prompt{
+    margin:0;padding:16px;background:var(--accent-soft);border-radius:12px;
+    font-size:17px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;
+  }
+  .prompt .blank{background:var(--blank);color:var(--blank-ink);border-radius:4px}
+
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../">← 回 Vivian 首頁</a>
+  <h1>每週讓 GPT 自動整理錯題本</h1>
+
+  <p class="lead">我每週是讓 ChatGPT 自動跑這段，你可以直接複製去改 👇</p>
+
+  <section class="prep">
+    <h2>先準備兩件事：</h2>
+    <ol class="steps" role="list">
+      <li><span class="step-number" aria-hidden="true">1.</span> 孩子用你同一個 ChatGPT 帳號，在同一個「專案」裡跟 AI 檢查作業（這樣它才讀得到那些作業照片）。</li>
+      <li><span class="step-number" aria-hidden="true">2.</span> 把孩子的課本檔案（例如翰林版）放進這個專案，讓它有書可以查。</li>
+    </ol>
+  </section>
+
+  <p>然後在這個專案裡設一個「排程任務」，每週固定時間執行：</p>
+  <blockquote class="prompt" id="weekly-prompt">每週<span class="blank">＿＿</span>（例如週六晚上 11:59），幫我整理孩子這一週的<span class="blank">＿＿</span>（例如數學、英文、社會）錯題。
+範圍：這週日到週六，孩子在這個專案裡給 AI 檢查作業的照片，你自己去讀，不用我再傳。
+1. 逐題對照原本的題目，找出寫錯的題目，同一題不要重複。
+2. 做兩份 PDF：
+   - 孩子用的重練卷：只有題目，留作答空間，不要附答案。
+   - 家長用的答案與錯因分析：每題的正確答案、錯在哪裡。
+3. 答案要對照專案裡的課本，標出你是根據課本哪裡找到的。
+   不確定的題目另外列出來給我確認，<strong>不要自己編答案</strong>。</blockquote>
+  <div class="copy-row">
+    <button class="copy" type="button" aria-controls="weekly-prompt">複製</button>
+    <span class="copy-status" role="status"></span>
+  </div>
+
+  <p class="closing">我最在意的是第 3 點：它會去書本上找答案，不確定就老實說，我才敢拿來跟孩子一起檢討 😊</p>
+</main>
+<footer class="vjoin" aria-label="陪跑">
+  <h2>想跟我一起，把這套做進你家？</h2>
+  <p>這一頁是其中一件。我在陪身邊的媽媽，從裝好工具開始，一起把 AI 用進每天的生活和孩子的學習。媽媽先會，再教孩子。</p>
+  <a href="../#join">看陪跑怎麼進行、先登記 →</a>
+</footer>
+<script>
+  const copyButton = document.querySelector('.copy');
+  const copyStatus = document.querySelector('.copy-status');
+  const copyTarget = document.getElementById(copyButton.getAttribute('aria-controls'));
+
+  copyButton.addEventListener('click', async () => {
+    const text = copyTarget.matches('ol')
+      ? Array.from(copyTarget.children, step => step.textContent.trim()).join('\n')
+      : copyTarget.textContent.trim();
+
+    if (navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(text);
+        copyStatus.textContent = '已複製';
+        return;
+      } catch (error) {
+        // 剪貼簿無法寫入時，改選取頁面上原有的文字。
+      }
+    }
+
+    const range = document.createRange();
+    range.selectNodeContents(copyTarget);
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+    copyStatus.textContent = '已選取文字，可手動複製';
+  });
+</script>
+</body>
+</html>
