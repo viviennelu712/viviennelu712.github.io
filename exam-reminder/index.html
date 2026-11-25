@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>考前提醒：孩子自己唸、自己勾</title>
+<meta name="description" content="從孩子自己的錯題找出最常犯的那一種，寫成考前一晚唸的提醒。模板和提示詞都可以直接複製。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://viviennelu712.github.io/exam-reminder/">
+<meta property="og:title" content="考前提醒：孩子自己唸、自己勾">
+<meta property="og:description" content="從孩子自己的錯題找出最常犯的那一種，寫成考前一晚唸的提醒。模板和提示詞都可以直接複製。">
+<meta property="og:image" content="https://viviennelu712.github.io/exam-reminder/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="考前提醒：孩子自己唸、自己勾">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F7F5F0; --surface:#FFFFFF; --ink:#16130E; --ink-2:#2E2922;
+    --muted:#5E5648; --rule:#DDD6C8; --accent:#7A4A1E; --accent-soft:#F1E6D6;
+    --blank:#FFF3C4; --blank-ink:#5A4300;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --paper:#14120E; --surface:#1E1B15; --ink:#F4EFE6; --ink-2:#E2DACB;
+      --muted:#B3A995; --rule:#3A342A; --accent:#E2AE6E; --accent-soft:#2C251B;
+      --blank:#4A3B10; --blank-ink:#FFE7A0;
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC",system-ui,sans-serif;
+    font-size:18px;line-height:1.9;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:620px;margin:0 auto;padding:36px 16px 0}
+  .back{display:inline-block;font-size:15px;color:var(--accent);text-decoration:none;margin-bottom:28px}
+  h1{font-size:30px;line-height:1.35;margin:0 0 28px;letter-spacing:-.01em;text-wrap:balance}
+  h2{font-size:22px;line-height:1.4;margin:0 0 12px}
+  p{margin:0 0 14px;color:var(--ink-2)}
+  .lead{font-size:21px;font-weight:700;line-height:1.6;color:var(--ink);margin-bottom:18px}
+  section{margin-top:44px}
+  .steps{list-style:none;margin:0;padding:0}
+  .steps li{position:relative;padding-left:40px;margin-bottom:16px;color:var(--ink-2)}
+  .steps strong{color:var(--ink)}
+  .step-number{
+    position:absolute;left:0;top:3px;width:28px;height:28px;display:grid;place-items:center;
+    border:1px solid var(--accent);border-radius:50%;color:var(--accent);font-weight:700;font-size:14px;line-height:1;
+  }
+  .note{font-size:16px;color:var(--muted)}
+  .copy-row{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin-top:12px}
+  .copy,.print{
+    min-height:44px;border:0;border-radius:10px;padding:8px 16px;cursor:pointer;
+    font:inherit;font-size:16px;font-weight:700;color:var(--paper);background:var(--accent);
+  }
+  .print{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+  .copy:focus-visible,.print:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+  .copy-status{font-size:15px;color:var(--muted)}
+  .prompt{
+    margin:0;padding:16px;background:var(--accent-soft);border-radius:12px;
+    font-size:17px;line-height:1.85;white-space:pre-wrap;overflow-wrap:anywhere;
+  }
+  .blank{background:var(--blank);color:var(--blank-ink);border-radius:4px}
+  .sheet{
+    background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px 18px 8px;
+    white-space:pre-wrap;overflow-wrap:anywhere;font-family:inherit;font-size:17px;line-height:1.9;margin:0;
+  }
+  .sheet b{color:var(--ink)}
+  .closing{
+    border-left:4px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;
+    padding:14px 16px;margin:36px 0 0;
+  }
+  .vjoin{
+    max-width:760px;width:calc(100% - 32px);margin:40px auto 32px;padding:24px 22px;
+    border-radius:18px;border:2px solid var(--accent);background:var(--accent-soft);color:var(--ink);
+  }
+  .vjoin h2{margin:0 0 8px;font-size:22px;line-height:1.35}
+  .vjoin p{margin:0 0 16px;font-size:16px;line-height:1.7}
+  .vjoin a{
+    display:inline-block;padding:13px 24px;border-radius:999px;background:var(--accent);
+    color:var(--paper);font-size:17px;font-weight:700;text-decoration:none;
+  }
+  .vjoin a:hover{filter:brightness(.92)}
+  @media print{
+    body{background:#fff;color:#000;font-size:15px}
+    .wrap > *:not(#sheet-section){display:none}
+    #sheet-section{margin:0}
+    #sheet-section > *:not(.sheet){display:none}
+    #sheet-section::before{content:"考前提醒";display:block;font-size:22px;font-weight:700;margin-bottom:8px}
+    .sheet{border:1px solid #999;background:#fff}
+    .vjoin{display:none}
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <a class="back" href="../">← 回 Vivian 首頁</a>
+  <h1>考前提醒：孩子自己唸、自己勾</h1>
+
+  <p class="lead">這是我給孩子用的考前提醒。不是一張通用的「考試注意事項」，是從他自己的錯題長出來的。</p>
+
+  <section>
+    <h2>先找出孩子最常錯的那一種（這步最重要）</h2>
+    <ol class="steps" role="list">
+      <li><span class="step-number" aria-hidden="true">1</span> 把孩子最近作業、考卷的錯題收在一起。</li>
+      <li><span class="step-number" aria-hidden="true">2</span> 每一題問：這題是錯在哪一種？計算、抄錯、觀念不懂、寫不完、漏寫單位、讀題漏看字……</li>
+      <li><span class="step-number" aria-hidden="true">3</span> 找出<strong>最常出現的那一種</strong>，寫成一句「下次怎麼做」。</li>
+    </ol>
+    <p>我家找到的共同點是「關鍵詞」：不是沒圈，就是圈了沒有用。所以第一部分寫的是圈關鍵詞，你家可能是別的。</p>
+  </section>
+
+  <section>
+    <h2>想讓 AI 幫你找，可以這樣說</h2>
+    <p>把錯題拍照傳給 ChatGPT 或 Gemini，再貼上這段：</p>
+    <blockquote class="prompt" id="ai-prompt">這是孩子最近的錯題照片。請幫我把每一題分成一種錯因，找出出現最多的共同原因，寫成 3 條「考前提醒」：每條一句孩子看得懂的話，後面附「上次：哪一題錯在哪」。
+不確定是哪一種錯的題目另外列出來，不要硬分。</blockquote>
+    <div class="copy-row">
+      <button class="copy" type="button" data-target="ai-prompt">複製提示詞</button>
+      <span class="copy-status" role="status"></span>
+    </div>
+    <p class="note">AI 分完你再看一次，分得不對的直接改。它是幫你整理，判斷還是你來。</p>
+  </section>
+
+  <section id="sheet-section">
+    <h2>考前提醒模板</h2>
+    <p>黃色的地方換成你家孩子的。可以複製到備忘錄，也可以印出來貼在書桌。</p>
+<pre class="sheet" id="sheet"><b>① 每次考試都一樣的三件事</b>
+□ 讀題時：圈出題目在問什麼
+   先想「這題要我找什麼？」再圈：幾個、共、平均、剩下、相同／不同、「非」「不正確」「哪些」「可能」。
+   英文：Choose、Circle、full answers、both、NOT。
+   圈完用自己的話說一次。
+□ 寫的時候：做到題目要的才停
+   題目要幾個就找幾個，要算到哪一步就算到哪一步。
+□ 交卷前：回頭看兩樣
+   ① 有沒有空著的題目
+   ② 抄下來的數字、符號、字有沒有抄對
+
+<b>② <span class="blank">＿＿</span>科要小心的（每科 2～3 條就好）</b>
+□ <span class="blank">＿＿＿＿＿＿</span>（一句話寫「要怎麼做」）
+   上次：<span class="blank">＿＿＿＿</span>（哪一題錯成怎樣，讓孩子認得出是自己的錯）
+□ <span class="blank">＿＿＿＿＿＿</span>
+   上次：<span class="blank">＿＿＿＿</span>
+</pre>
+    <div class="copy-row">
+      <button class="copy" type="button" data-target="sheet">複製模板</button>
+      <button class="print" type="button" onclick="window.print()">印出來</button>
+      <span class="copy-status" role="status"></span>
+    </div>
+  </section>
+
+  <section>
+    <h2>怎麼用</h2>
+    <ol class="steps" role="list">
+      <li><span class="step-number" aria-hidden="true">1</span> 考前一晚睡前花 2 分鐘，讓孩子自己一條一條唸，唸過打勾。</li>
+      <li><span class="step-number" aria-hidden="true">2</span> 考卷發回來，再回來勾：這條有沒有再犯？</li>
+      <li><span class="step-number" aria-hidden="true">3</span> 連兩次沒犯，這條就畢業，換下一條。</li>
+    </ol>
+  </section>
+
+  <p class="closing">我覺得最有用的不是這張單子本身，是孩子考前自己唸、考完自己勾。他自己知道哪一步救了他 😊</p>
+</main>
+<footer class="vjoin" aria-label="陪跑">
+  <h2>想跟我一起，把這套做進你家？</h2>
+  <p>這一頁是其中一件。我在陪身邊的媽媽，從裝好工具開始，一起把 AI 用進每天的生活和孩子的學習。媽媽先會，再教孩子。</p>
+  <a href="../#join">看陪跑怎麼進行、先登記 →</a>
+</footer>
+<script>
+  document.querySelectorAll('.copy').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const target = document.getElementById(btn.dataset.target);
+      const status = btn.parentElement.querySelector('.copy-status');
+      const text = target.textContent.trim();
+      if (navigator.clipboard) {
+        try { await navigator.clipboard.writeText(text); status.textContent = '已複製'; return; }
+        catch (e) { /* 剪貼簿無法寫入時，改選取文字 */ }
+      }
+      const range = document.createRange();
+      range.selectNodeContents(target);
+      const sel = window.getSelection();
+      sel.removeAllRanges(); sel.addRange(range);
+      status.textContent = '已選取文字，可手動複製';
+    });
+  });
+</script>
+</body>
+</html>
